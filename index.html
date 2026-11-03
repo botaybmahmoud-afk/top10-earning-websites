@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ProFileTools - 100% Free Online AI & File Processor</title>
     <link rel="stylesheet" href="https://cloudflare.com">
-    <!-- استدعاء المكتبات البرمجية محلياً بشكل مستقل وآمن تماماً -->
+    <!-- استدعاء فوري ومباشر لضمان تشغيل الأزرار دون أي تأخير على الهواتف -->
     <script src="https://jsdelivr.net"></script>
     <script src="https://cloudflare.com"></script>
     <style>
@@ -99,13 +99,10 @@
     <div class="navbar"><i class="fas fa-cubes"></i> ProFileTools</div>
 
     <div class="container">
-        
         <h2 style="font-size: 2rem; margin-bottom: 5px;">Premium Online File Toolkit</h2>
         <p style="color: #94a3b8; font-size: 0.95rem; margin-top: 0;">100% Free, Secure & Powered by Local Browser Processing.</p>
 
-        <!-- الأدوات الستة كاملة وبدون أي أكواد إعلانية برمجية معطلة للسيرفر -->
         <div class="tools-container">
-
             <!-- 1. ZIP to Multi-Page PDF -->
             <div class="tool-section">
                 <h3><i class="fas fa-file-archive"></i> ZIP to Multi-Page PDF</h3>
@@ -159,14 +156,11 @@
                 <input type="file" id="enhance-input" accept="image/*">
                 <button class="btn" onclick="enhanceImage()">Upscale to Ultra HD</button>
             </div>
-
         </div>
-
         <p style="color: #475569; font-size: 0.8rem; margin-top: 30px;">ProFileTools © 2026 - All Rights Reserved</p>
     </div>
 
     <script>
-        // دالة التحميل الفوري للملفات دون أي تدخل خارجي
         function downloadBlob(blob, filename) {
             const url = window.URL.createObjectURL(blob);
             const a = document.createElement('a');
@@ -175,15 +169,17 @@
             a.download = filename;
             document.body.appendChild(a);
             a.click();
-            window.URL.revokeObjectURL(url);
-            document.body.removeChild(a);
+            setTimeout(() => {
+                document.body.removeChild(a);
+                window.URL.revokeObjectURL(url);
+            }, 100);
         }
 
         async function convertZipToPdf() {
             const fileInput = document.getElementById('zip-input').files;
             if (fileInput.length === 0) { alert('Please select a ZIP file.'); return; }
             try {
-                const zip = await JSZip.loadAsync(fileInput[0]);
+                const zip = await JSZip.loadAsync(fileInput);
                 const pdfDoc = await PDFLib.PDFDocument.create();
                 let count = 0;
                 for (let relativePath in zip.files) {
@@ -225,3 +221,5 @@
                     const pdf = await PDFLib.PDFDocument.load(arrayBuffer);
                     const copiedPages = await mergedPdf.copyPages(pdf, pdf.getPageIndices());
                     copiedPages.forEach((page) => mergedPdf.addPage(page));
+                }
+                const mergedPdfBytes = await mergedPdf.save();
