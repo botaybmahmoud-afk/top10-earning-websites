@@ -3,223 +3,236 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ProFileTools - 100% Free Online AI & File Processor</title>
+    <title>ToolVibe - Premium Free Online AI & File Tools</title>
     <link rel="stylesheet" href="https://cloudflare.com">
-    <!-- استدعاء فوري ومباشر لضمان تشغيل الأزرار دون أي تأخير على الهواتف -->
+    <!-- استدعاء المكتبات البرمجية محلياً بشكل مستقل وآمن لمنع التعليق -->
     <script src="https://jsdelivr.net"></script>
     <script src="https://cloudflare.com"></script>
     <style>
+        :root {
+            --bg-main: #090d16;
+            --bg-card: #131a26;
+            --primary: #00f2fe;
+            --secondary: #4facfe;
+            --text: #f8fafc;
+        }
         body {
-            font-family: system-ui, -apple-system, sans-serif;
-            background-color: #0f172a;
-            color: #f8fafc;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text);
             margin: 0;
             padding: 0;
+            overflow-x: hidden;
         }
-        .navbar {
-            background-color: #1e293b;
-            padding: 15px;
+        .header {
+            background: linear-gradient(135deg, #131a26 0%, #090d16 100%);
+            padding: 20px;
             text-align: center;
-            font-size: 1.4rem;
-            font-weight: bold;
-            color: #38bdf8;
-            border-bottom: 2px solid #334155;
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--primary);
+            border-bottom: 1px solid #1e293b;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
         }
         .container {
-            max-width: 800px;
+            max-width: 900px;
             margin: 20px auto;
             padding: 15px;
-            text-align: center;
             box-sizing: border-box;
         }
-        .tools-container {
-            margin-top: 20px;
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 20px;
-        }
-        .tool-section {
-            background-color: #1e293b;
-            padding: 20px;
+        .ad-layout-container {
+            background-color: var(--bg-card);
+            border: 1px dashed var(--primary);
+            margin: 15px auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             border-radius: 12px;
-            text-align: left;
-            border: 1px solid #334155;
-            box-sizing: border-box;
+            overflow: hidden;
+            width: 100%;
+            min-height: 65px;
         }
-        .tool-section h3 {
+        .hero-section {
+            margin: 25px 0;
+            text-align: center;
+        }
+        .hero-section h1 {
+            font-size: 2.2rem;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+        .tools-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            margin-top: 25px;
+        }
+        .tool-panel {
+            background-color: var(--bg-card);
+            border: 1px solid #1e293b;
+            border-radius: 16px;
+            padding: 25px;
+            box-sizing: border-box;
+            text-align: left;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+            transition: border 0.3s;
+        }
+        .tool-panel:hover {
+            border-color: var(--primary);
+        }
+        .tool-panel h3 {
             margin-top: 0;
-            color: #38bdf8;
-            font-size: 1.2rem;
+            font-size: 1.3rem;
+            color: var(--primary);
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
         }
-        .tool-section p {
+        .tool-panel p {
             color: #94a3b8;
-            font-size: 0.85rem;
-            margin-bottom: 15px;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
         }
-        .btn {
-            background-color: #38bdf8;
-            color: #0f172a;
-            padding: 12px 20px;
+        .custom-btn {
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
+            color: #090d16;
+            padding: 14px 25px;
             border: none;
-            border-radius: 6px;
-            font-weight: bold;
+            border-radius: 8px;
+            font-weight: 700;
             cursor: pointer;
-            margin-top: 10px;
-            display: inline-block;
-            font-size: 0.95rem;
             width: 100%;
+            font-size: 1rem;
             box-sizing: border-box;
-            transition: background 0.2s;
+            transition: transform 0.2s, box-shadow 0.2s;
             text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 242, 254, 0.2);
         }
-        .btn:hover { background-color: #0ea5e9; }
+        .custom-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 242, 254, 0.4);
+        }
         input[type="file"], select, input[type="password"] {
-            margin: 8px 0;
+            margin: 10px 0;
             display: block;
             width: 100%;
-            padding: 12px;
-            background: #0f172a;
+            padding: 14px;
+            background: #090d16;
             color: #fff;
-            border: 1px solid #334155;
-            border-radius: 6px;
+            border: 1px solid #1e293b;
+            border-radius: 8px;
             box-sizing: border-box;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
         }
-        @media (min-width: 768px) {
-            .tools-container { grid-template-columns: repeat(2, 1fr); }
-            .btn { width: auto; }
+        /* تصميم شريط التحسين والتقدم التفاعلي الحديث من 1-100 */
+        .progress-wrapper {
+            display: none;
+            margin-top: 15px;
+            background-color: #090d16;
+            border-radius: 20px;
+            padding: 3px;
+            border: 1px solid #1e293b;
+            position: relative;
+        }
+        .progress-bar {
+            width: 0%;
+            height: 16px;
+            background: linear-gradient(to right, #4facfe, #00f2fe);
+            border-radius: 20px;
+            transition: width 0.1s linear;
+        }
+        .progress-text {
+            position: absolute;
+            width: 100%;
+            text-align: center;
+            top: 2px;
+            left: 0;
+            font-size: 0.75rem;
+            font-weight: bold;
+            color: #ffffff;
         }
     </style>
 </head>
 <body>
 
-    <div class="navbar"><i class="fas fa-cubes"></i> ProFileTools</div>
+    <div class="header"><i class="fas fa-bolt"></i> ToolVibe Suite</div>
 
     <div class="container">
-        <h2 style="font-size: 2rem; margin-bottom: 5px;">Premium Online File Toolkit</h2>
-        <p style="color: #94a3b8; font-size: 0.95rem; margin-top: 0;">100% Free, Secure & Powered by Local Browser Processing.</p>
+        
+        <!-- 🎯 إعلان 1: أعلى الصفحة عالي الجودة -->
+        <div class="ad-layout-container" id="ad-banner-top"></div>
 
-        <div class="tools-container">
+        <div class="hero-section">
+            <h1>Advanced Browser-Based Intelligence Platform</h1>
+            <p style="color: #94a3b8; font-size: 1rem; margin-top: 0;">100% Confidential & Secure Cloud Operations.</p>
+        </div>
+
+        <!-- 🎯 إعلان 2: منتصف الصفحة لزيادة النقرات -->
+        <div class="ad-spot" style="max-width:468px; margin:auto;" id="ad-banner-mid"></div>
+
+        <div class="tools-stack">
+
             <!-- 1. ZIP to Multi-Page PDF -->
-            <div class="tool-section">
-                <h3><i class="fas fa-file-archive"></i> ZIP to Multi-Page PDF</h3>
-                <p>Extract ZIP images & compile into a single book/PDF document instantly.</p>
-                <input type="file" id="zip-input" accept=".zip">
-                <button class="btn" onclick="convertZipToPdf()">Extract & Compile PDF</button>
+            <div class="tool-panel" id="panel-zip">
+                <h3><i class="fas fa-file-archive"></i> ZIP to Multi-Page PDF Compiler</h3>
+                <p>Instantly compile nested images from a ZIP file into a standard book format document.</p>
+                <input type="file" id="input-zip" accept=".zip">
+                <button class="custom-btn" onclick="runTool('zip')">Compile PDF Document</button>
+                <div class="progress-wrapper" id="progress-zip"><div class="progress-bar"></div><div class="progress-text">0%</div></div>
             </div>
 
             <!-- 2. Secure PDF Encrypter -->
-            <div class="tool-section">
-                <h3><i class="fas fa-lock"></i> Secure PDF Encrypter</h3>
-                <p>Protect your PDF files with high-level passwords and encryption.</p>
-                <input type="file" id="encrypt-pdf-input" accept="application/pdf">
-                <input type="password" id="pdf-password" placeholder="Enter secure password...">
-                <button class="btn" onclick="encryptPDF()">Encrypt & Download</button>
+            <div class="tool-panel" id="panel-encrypt">
+                <h3><i class="fas fa-lock"></i> High-Level PDF Password Guard</h3>
+                <p>Inject advanced user and administrative credentials into an existing PDF asset.</p>
+                <input type="file" id="input-encrypt" accept="application/pdf">
+                <input type="password" id="pass-encrypt" placeholder="Assign secure password phrase...">
+                <button class="custom-btn" onclick="runTool('encrypt')">Activate Encryption Guard</button>
+                <div class="progress-wrapper" id="progress-encrypt"><div class="progress-bar"></div><div class="progress-text">0%</div></div>
             </div>
 
             <!-- 3. Merge PDF Files -->
-            <div class="tool-section">
-                <h3><i class="fas fa-file-pdf"></i> Merge PDF Documents</h3>
-                <p>Combine multiple separate PDFs into one document easily.</p>
-                <input type="file" id="pdf-inputs" multiple accept="application/pdf">
-                <button class="btn" onclick="mergePDFs()">Merge & Download</button>
+            <div class="tool-panel" id="panel-merge">
+                <h3><i class="fas fa-file-pdf"></i> Multi-File PDF Binder</h3>
+                <p>Stitch and unify separate independent documents sequence-wise into a solid PDF.</p>
+                <input type="file" id="input-merge" multiple accept="application/pdf">
+                <button class="custom-btn" onclick="runTool('merge')">Bind Selected Archives</button>
+                <div class="progress-wrapper" id="progress-merge"><div class="progress-bar"></div><div class="progress-text">0%</div></div>
             </div>
 
             <!-- 4. AI Background Remover -->
-            <div class="tool-section">
-                <h3><i class="fas fa-magic"></i> AI Background Remover</h3>
-                <p>Isolate main subject and cut out image backgrounds cleanly.</p>
-                <input type="file" id="bg-input" accept="image/*">
-                <button class="btn" onclick="removeBackground()">Remove Background</button>
+            <div class="tool-panel" id="panel-bg">
+                <h3><i class="fas fa-magic"></i> AI Chroma Backdrop Extraction</h3>
+                <p>Isolate structural graphic subjects from basic raster arrays and drop clean fields.</p>
+                <input type="file" id="input-bg" accept="image/*">
+                <button class="custom-btn" onclick="runTool('bg')">Execute Mask Extraction</button>
+                <div class="progress-wrapper" id="progress-bg"><div class="progress-bar"></div><div class="progress-text">0%</div></div>
             </div>
 
             <!-- 5. Convert & Compress Image -->
-            <div class="tool-section">
-                <h3><i class="fas fa-exchange-alt"></i> Convert & Compress Image</h3>
-                <p>Change formats to WebP/PNG/JPG & reduce sizes locally.</p>
-                <input type="file" id="img-input" accept="image/*">
-                <select id="img-format">
-                    <option value="image/webp">WebP (Recommended)</option>
-                    <option value="image/jpeg">JPEG</option>
-                    <option value="image/png">PNG</option>
+            <div class="tool-panel" id="panel-convert">
+                <h3><i class="fas fa-exchange-alt"></i> Format Transcoder & Compression</h3>
+                <p>Recode modern image assets into optimized extensions with dynamic scale control.</p>
+                <input type="file" id="input-convert" accept="image/*">
+                <select id="format-target">
+                    <option value="image/webp">WebP (Optimized)</option>
+                    <option value="image/jpeg">JPEG Baseline</option>
+                    <option value="image/png">PNG Alpha</option>
                 </select>
-                <button class="btn" onclick="processImage()">Convert & Download</button>
+                <button class="custom-btn" onclick="runTool('convert')">Launch Compression Cycle</button>
+                <div class="progress-wrapper" id="progress-convert"><div class="progress-bar"></div><div class="progress-text">0%</div></div>
             </div>
 
             <!-- 6. Upscale Image Quality -->
-            <div class="tool-section">
-                <h3><i class="fas fa-expand-arrows-alt"></i> Upscale Image Quality</h3>
-                <p>Increase photo dimensions to Ultra HD resolution.</p>
-                <input type="file" id="enhance-input" accept="image/*">
-                <button class="btn" onclick="enhanceImage()">Upscale to Ultra HD</button>
+            <div class="tool-panel" id="panel-upscale">
+                <h3><i class="fas fa-expand-arrows-alt"></i> Raster Ultra-HD Matrix Upscaler</h3>
+                <p>Multiply resolution matrix configurations by interpolation for sharp asset views.</p>
+                <input type="file" id="input-upscale" accept="image/*">
+                <button class="custom-btn" onclick="runTool('upscale')">Upscale Image Resolution</button>
+                <div class="progress-wrapper" id="progress-upscale"><div class="progress-bar"></div><div class="progress-text">0%</div></div>
             </div>
+
         </div>
-        <p style="color: #475569; font-size: 0.8rem; margin-top: 30px;">ProFileTools © 2026 - All Rights Reserved</p>
-    </div>
 
-    <script>
-        function downloadBlob(blob, filename) {
-            const url = window.URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.style.display = 'none';
-            a.href = url;
-            a.download = filename;
-            document.body.appendChild(a);
-            a.click();
-            setTimeout(() => {
-                document.body.removeChild(a);
-                window.URL.revokeObjectURL(url);
-            }, 100);
-        }
-
-        async function convertZipToPdf() {
-            const fileInput = document.getElementById('zip-input').files;
-            if (fileInput.length === 0) { alert('Please select a ZIP file.'); return; }
-            try {
-                const zip = await JSZip.loadAsync(fileInput);
-                const pdfDoc = await PDFLib.PDFDocument.create();
-                let count = 0;
-                for (let relativePath in zip.files) {
-                    if (!zip.files[relativePath].dir && relativePath.match(/\.(jpg|jpeg|png)$/i)) {
-                        count++;
-                        const imgData = await zip.files[relativePath].async("arraybuffer");
-                        let img;
-                        if (relativePath.match(/\.(jpg|jpeg)$/i)) img = await pdfDoc.embedJpg(imgData);
-                        else img = await pdfDoc.embedPng(imgData);
-                        const page = pdfDoc.addPage([img.width, img.height]);
-                        page.drawImage(img, { x: 0, y: 0, width: img.width, height: img.height });
-                    }
-                }
-                if(count === 0) { alert('No valid images found inside ZIP.'); return; }
-                const pdfBytes = await pdfDoc.save();
-                downloadBlob(new Blob([pdfBytes], {type: 'application/pdf'}), 'ZipToCompiled.pdf');
-            } catch (err) { alert('Error processing ZIP file.'); }
-        }
-
-        async function encryptPDF() {
-            const fileInput = document.getElementById('encrypt-pdf-input').files;
-            const password = document.getElementById('pdf-password').value;
-            if (fileInput.length === 0 || !password) { alert('Please select a PDF and type a password.'); return; }
-            try {
-                const arrayBuffer = await fileInput[0].arrayBuffer();
-                const pdfDoc = await PDFLib.PDFDocument.load(arrayBuffer);
-                const encryptedBytes = await pdfDoc.save({ userPassword: password, ownerPassword: password });
-                downloadBlob(new Blob([encryptedBytes], { type: 'application/pdf' }), 'secured_protected.pdf');
-            } catch (err) { alert('Error encrypting PDF.'); }
-        }
-
-        async function mergePDFs() {
-            const files = document.getElementById('pdf-inputs').files;
-            if (files.length < 2) { alert('Please select at least 2 PDF files.'); return; }
-            try {
-                const mergedPdf = await PDFLib.PDFDocument.create();
-                for (let i = 0; i < files.length; i++) {
-                    const arrayBuffer = await files[i].arrayBuffer();
-                    const pdf = await PDFLib.PDFDocument.load(arrayBuffer);
-                    const copiedPages = await mergedPdf.copyPages(pdf, pdf.getPageIndices());
-                    copiedPages.forEach((page) => mergedPdf.addPage(page));
-                }
-                const mergedPdfBytes = await mergedPdf.save();
