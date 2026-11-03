@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ProFileTools - 100% Free Online AI & File Processor</title>
     <link rel="stylesheet" href="https://cloudflare.com">
-    <!-- استدعاء مباشر ونظيف للمكتبات بدون قيود أمنية معطلة لفتح الموقع فوراً -->
-    <script src="https://jsdelivr.net"></script>
-    <script src="https://cloudflare.com"></script>
+    <!-- استدعاء مباشر وآمن للمكتبات بدون التسبب في تعليق المتصفح -->
+    <script src="https://jsdelivr.net" defer></script>
+    <script src="https://cloudflare.com" defer></script>
     <style>
         body {
             font-family: system-ui, -apple-system, sans-serif;
@@ -127,37 +127,28 @@
 </head>
 <body>
 
-    <div class="navbar"><i class="fas fa-cubes"></i> ProFileTools</div>
+    <div class="navbar">ProFileTools</div>
 
     <div class="main-layout">
         
-        <!-- إعلان 160x600 يسار -->
+        <!-- إعلان 160x600 يسار معزول برمجياً عالي الأمان لمنع تعليق الموقع -->
         <div class="sidebar-ad">
-            <script>
-                atOptions = { 'key' : '45f3883dd373c2992ffd8f77c09487b4', 'format' : 'iframe', 'height' : 600, 'width' : 160, 'params' : {} };
-            </script>
-            <script src="https://bauval.org"></script>
+            <div id="ad-sidebar-left"></div>
         </div>
 
         <div class="container">
             
-            <!-- إعلان علوي 728x90 -->
+            <!-- إعلان علوي 728x90 معزول -->
             <div class="ad-spot" style="max-width: 728px; min-height: 90px;">
-                <script>
-                    atOptions = { 'key' : '6985c69e1a7650e6f41f0b64dbbfac18', 'format' : 'iframe', 'height' : 90, 'width' : 728, 'params' : {} };
-                </script>
-                <script src="https://bauval.org"></script>
+                <div id="ad-top-giant"></div>
             </div>
 
             <h2 style="font-size: 2rem; margin-bottom: 5px;">Premium Online File Toolkit</h2>
             <p style="color: #94a3b8; font-size: 0.95rem; margin-top: 0;">100% Free, Secure & Powered by Local Web Browser Processing.</p>
 
-            <!-- إعلان 468x60 وسط -->
+            <!-- إعلان 468x60 وسط معزول -->
             <div class="ad-spot" style="max-width: 468px; min-height: 60px;">
-                <script>
-                    atOptions = { 'key' : '409e63de330fc9d6fc68cfbbc8e76dbf', 'format' : 'iframe', 'height' : 60, 'width' : 468, 'params' : {} };
-                </script>
-                <script src="https://bauval.org"></script>
+                <div id="ad-middle-banner"></div>
             </div>
 
             <div class="tools-container">
@@ -218,25 +209,46 @@
 
             </div>
 
-            <!-- إعلان 300x250 مربع -->
+            <!-- إعلان 300x250 مربع معزول -->
             <div class="ad-spot" style="max-width: 300px; min-height: 250px;">
-                <script>
-                    atOptions = { 'key' : 'b36f398609e803de650323a67cd82433', 'format' : 'iframe', 'height' : 250, 'width' : 300, 'params' : {} };
-                </script>
-                <script src="https://bauval.org"></script>
+                <div id="ad-square-box"></div>
             </div>
 
-            <!-- إعلان 320x50 سفلي للموبايل -->
+            <!-- إعلان 320x50 سفلي معزول -->
             <div class="ad-spot" style="max-width: 320px; min-height: 50px; margin-top:30px;">
-                <script>
-                    atOptions = { 'key' : 'b77f1abac0db74649cc221c1da69d97a', 'format' : 'iframe', 'height' : 50, 'width' : 320, 'params' : {} };
-                </script>
-                <script src="https://bauval.org"></script>
+                <div id="ad-mobile-bottom"></div>
             </div>
 
             <p style="color: #475569; font-size: 0.8rem; margin-top: 30px;">ProFileTools © 2026 - All Rights Reserved</p>
         </div>
 
-        <!-- إعلان 160x600 يمين -->
+        <!-- إعلان 160x600 يمين معزول -->
         <div class="sidebar-ad">
-            <script>
+            <div id="ad-sidebar-right"></div>
+        </div>
+
+    </div>
+
+    <script>
+        // دالة سحرية تقوم بحقن الإعلانات بشكل منفصل تماماً بعد فتح الصفحة لكي لا يعلق الموقع أبداً رغماً عن أي حظر
+        window.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                injectAd('ad-sidebar-left', '45f3883dd373c2992ffd8f77c09487b4', 160, 600);
+                injectAd('ad-top-giant', '6985c69e1a7650e6f41f0b64dbbfac18', 728, 90);
+                injectAd('ad-middle-banner', '409e63de330fc9d6fc68cfbbc8e76dbf', 468, 60);
+                injectAd('ad-square-box', 'b36f398609e803de650323a67cd82433', 300, 250);
+                injectAd('ad-mobile-bottom', 'b77f1abac0db74649cc221c1da69d97a', 320, 50);
+                injectAd('ad-sidebar-right', '74640c531876df98505317df872719bc', 160, 300);
+            }, 500);
+        });
+
+        function injectAd(elementId, key, width, height) {
+            const target = document.getElementById(elementId);
+            if (!target) return;
+            const iframe = document.createElement('iframe');
+            iframe.style.width = width + 'px';
+            iframe.style.height = height + 'px';
+            iframe.style.border = 'none';
+            iframe.style.overflow = 'hidden';
+            target.appendChild(iframe);
+            
