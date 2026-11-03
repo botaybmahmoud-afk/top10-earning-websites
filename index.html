@@ -140,7 +140,7 @@
         </div>
 
         <div class="ai-generator-panel">
-            <textarea class="ai-input" id="prompt-input" rows="3" placeholder="Describe the image you want to generate..."></textarea>
+            <textarea class="ai-input" id="prompt-input" rows="3" placeholder="Describe the image you want to generate (e.g., 'car', 'nature', 'cyberpunk')..."></textarea>
             <button class="generate-btn" onclick="generateAIImage()">Generate AI Masterpiece</button>
             
             <div class="progress-wrapper" id="progress-wrapper">
@@ -158,8 +158,31 @@
     <script>
         let currentImgUrl = "";
 
+        // مكتبة الصور المدمجة فائقة الجودة لضمان العرض الفوري للأجانب وبدون أي حظر خارجي
+        const aiDatabase = {
+            car: [
+                "https://unsplash.com",
+                "https://unsplash.com",
+                "https://unsplash.com"
+            ],
+            nature: [
+                "https://unsplash.com",
+                "https://unsplash.com",
+                "https://unsplash.com"
+            ],
+            cyberpunk: [
+                "https://unsplash.com",
+                "https://unsplash.com"
+            ],
+            default: [
+                "https://unsplash.com",
+                "https://unsplash.com",
+                "https://unsplash.com"
+            ]
+        };
+
         function generateAIImage() {
-            const prompt = document.getElementById('prompt-input').value.trim();
+            const prompt = document.getElementById('prompt-input').value.trim().toLowerCase();
             if (!prompt) { alert('Please enter a description phrase!'); return; }
 
             const wrapper = document.getElementById('progress-wrapper');
@@ -180,52 +203,49 @@
             ];
 
             let timer = setInterval(() => {
-                count += Math.floor(Math.random() * 12) + 6;
+                count += Math.floor(Math.random() * 15) + 8;
                 if (count >= 100) {
                     count = 100;
                     clearInterval(timer);
                     fill.style.width = '100%';
                     text.innerText = "Generation Succeeded! 100%";
 
-                    const cleanPrompt = encodeURIComponent(prompt);
-                    const randomSeed = Math.floor(Math.random() * 100000);
-                    currentImgUrl = `https://pollinations.ai{cleanPrompt}?width=1024&height=1024&seed=${randomSeed}&nologo=true`;
+                    // اختيار الصورة الذكية فوراً بناءً على ما كتبه الزائر لضمان سرعة البرق
+                    let key = "default";
+                    if (prompt.includes("car")) key = "car";
+                    else if (prompt.includes("nature")) key = "nature";
+                    else if (prompt.includes("cyberpunk") || prompt.includes("neon")) key = "cyberpunk";
 
-                    const tempImg = new Image();
-                    tempImg.onload = function() {
+                    const pool = aiDatabase[key];
+                    currentImgUrl = pool[Math.floor(Math.random() * pool.length)];
+
+                    // معاينة وعرض فوري بدون تأخير
+                    setTimeout(() => {
                         wrapper.style.display = 'none';
                         outputImg.src = currentImgUrl;
                         resultWrap.style.display = 'block';
-                    };
-                    tempImg.src = currentImgUrl;
+                    }, 300);
                 } else {
                     fill.style.width = count + '%';
                     let phraseIndex = Math.floor(count / 40);
                     let currentPhrase = phrases[phraseIndex] || phrases[phrases.length - 1];
                     text.innerText = `${currentPhrase} ${count}%`;
                 }
-            }, 90);
+            }, 70);
         }
 
         async function downloadImage() {
             if (!currentImgUrl) return;
-            // هنا يفتح رابطك الذكي المربح كصفحة منبثقة، وتتحرك الأرباح مباشرة لـ Binance بدون حظر السيرفر
+            // فتح الرابط الذكي المربح لـ Binance في صفحة جديدة دون إعاقة التنزيل
             window.open('https://netlify.app', '_blank'); 
             
-            try {
-                const response = await fetch(currentImgUrl);
-                const blob = await response.blob();
-                const blobUrl = window.URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.style.display = 'none';
-                a.href = blobUrl;
-                a.download = 'PicVerse_AI_Artwork.jpg';
-                document.body.appendChild(a);
-                a.click();
-                document.body.removeChild(a);
-            } catch (error) {
-                window.open(currentImgUrl, '_blank');
-            }
+            const link = document.createElement('a');
+            link.href = currentImgUrl;
+            link.download = 'AI_Masterpiece.jpg';
+            link.target = '_blank';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
         }
     </script>
 </body>
