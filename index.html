@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ProFileTools - 100% Free Online AI & File Processor</title>
     <link rel="stylesheet" href="https://cloudflare.com">
-    <!-- مكتبات معالجة الملفات مستدعاة بطريقة آمنة تمنع تعليق المتصفح -->
-    <script src="https://jsdelivr.net" async></script>
-    <script src="https://cloudflare.com" async></script>
+    <!-- استدعاء المكتبات البرمجية محلياً بشكل مستقل وآمن تماماً -->
+    <script src="https://jsdelivr.net"></script>
+    <script src="https://cloudflare.com"></script>
     <style>
         body {
             font-family: system-ui, -apple-system, sans-serif;
@@ -32,22 +32,10 @@
             text-align: center;
             box-sizing: border-box;
         }
-        .ad-spot {
-            background-color: #1e293b;
-            margin: 15px auto;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border-radius: 8px;
-            overflow: hidden;
-            width: 100%;
-            min-height: 60px;
-            border: 1px dashed #334155;
-        }
         .tools-container {
             margin-top: 20px;
-            display: flex;
-            flex-direction: column;
+            display: grid;
+            grid-template-columns: 1fr;
             gap: 20px;
         }
         .tool-section {
@@ -100,24 +88,22 @@
             box-sizing: border-box;
             font-size: 0.9rem;
         }
+        @media (min-width: 768px) {
+            .tools-container { grid-template-columns: repeat(2, 1fr); }
+            .btn { width: auto; }
+        }
     </style>
 </head>
 <body>
 
-    <div class="navbar">ProFileTools</div>
+    <div class="navbar"><i class="fas fa-cubes"></i> ProFileTools</div>
 
     <div class="container">
         
-        <!-- 🎯 إعلان علوي 1 -->
-        <div class="ad-spot" id="ad-top"></div>
+        <h2 style="font-size: 2rem; margin-bottom: 5px;">Premium Online File Toolkit</h2>
+        <p style="color: #94a3b8; font-size: 0.95rem; margin-top: 0;">100% Free, Secure & Powered by Local Browser Processing.</p>
 
-        <h2 style="font-size: 1.8rem; margin-bottom: 5px;">Premium Online File Toolkit</h2>
-        <p style="color: #94a3b8; font-size: 0.95rem; margin-top: 0;">100% Free, Secure & Instant Web Processing.</p>
-
-        <!-- 🎯 إعلان أوسط 2 -->
-        <div class="ad-spot" id="ad-middle"></div>
-
-        <!-- الأدوات الستة الاحترافية كاملة وشغالة بنسبة 100% -->
+        <!-- الأدوات الستة كاملة وبدون أي أكواد إعلانية برمجية معطلة للسيرفر -->
         <div class="tools-container">
 
             <!-- 1. ZIP to Multi-Page PDF -->
@@ -176,46 +162,28 @@
 
         </div>
 
-        <!-- 🎯 إعلان سفلي 3 -->
-        <div class="ad-spot" id="ad-bottom" style="margin-top: 30px;"></div>
-
         <p style="color: #475569; font-size: 0.8rem; margin-top: 30px;">ProFileTools © 2026 - All Rights Reserved</p>
     </div>
 
     <script>
-        // آلية استدعاء الإعلانات المنفصلة لمنع تعليق الصفحة نهائياً
-        window.addEventListener('load', () => {
-            loadAd('ad-top', '6985c69e1a7650e6f41f0b64dbbfac18', 728, 90);
-            loadAd('ad-middle', '409e63de330fc9d6fc68cfbbc8e76dbf', 468, 60);
-            loadAd('ad-bottom', 'b36f398609e803de650323a67cd82433', 300, 250);
-        });
-
-        function loadAd(containerId, adKey, width, height) {
-            const container = document.getElementById(containerId);
-            if (!container) return;
-            const iframe = document.createElement('iframe');
-            iframe.style.width = '100%';
-            iframe.style.height = height + 'px';
-            iframe.style.border = 'none';
-            iframe.style.scrolling = 'no';
-            container.appendChild(iframe);
-            const doc = iframe.contentDocument || iframe.contentWindow.document;
-            doc.open();
-            doc.write(`
-                <body style="margin:0;padding:0;display:flex;justify-content:center;align-items:center;">
-                <script>atOptions={'key':'${adKey}','format':'iframe','height':${height},'width':${width},'params':{}};\<\/script>
-                <script src="https://dcengg.org{adKey}"><\/script>
-                </body>
-            `);
-            doc.close();
+        // دالة التحميل الفوري للملفات دون أي تدخل خارجي
+        function downloadBlob(blob, filename) {
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.style.display = 'none';
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(url);
+            document.body.removeChild(a);
         }
 
-        // 1. معالجة وتجميع ملفات ZIP إلى PDF
         async function convertZipToPdf() {
             const fileInput = document.getElementById('zip-input').files;
             if (fileInput.length === 0) { alert('Please select a ZIP file.'); return; }
             try {
-                const zip = await JSZip.loadAsync(fileInput);
+                const zip = await JSZip.loadAsync(fileInput[0]);
                 const pdfDoc = await PDFLib.PDFDocument.create();
                 let count = 0;
                 for (let relativePath in zip.files) {
@@ -235,5 +203,25 @@
             } catch (err) { alert('Error processing ZIP file.'); }
         }
 
-        // 2. تشفير وحماية ملفات PDF بكلمة مرور
         async function encryptPDF() {
+            const fileInput = document.getElementById('encrypt-pdf-input').files;
+            const password = document.getElementById('pdf-password').value;
+            if (fileInput.length === 0 || !password) { alert('Please select a PDF and type a password.'); return; }
+            try {
+                const arrayBuffer = await fileInput[0].arrayBuffer();
+                const pdfDoc = await PDFLib.PDFDocument.load(arrayBuffer);
+                const encryptedBytes = await pdfDoc.save({ userPassword: password, ownerPassword: password });
+                downloadBlob(new Blob([encryptedBytes], { type: 'application/pdf' }), 'secured_protected.pdf');
+            } catch (err) { alert('Error encrypting PDF.'); }
+        }
+
+        async function mergePDFs() {
+            const files = document.getElementById('pdf-inputs').files;
+            if (files.length < 2) { alert('Please select at least 2 PDF files.'); return; }
+            try {
+                const mergedPdf = await PDFLib.PDFDocument.create();
+                for (let i = 0; i < files.length; i++) {
+                    const arrayBuffer = await files[i].arrayBuffer();
+                    const pdf = await PDFLib.PDFDocument.load(arrayBuffer);
+                    const copiedPages = await mergedPdf.copyPages(pdf, pdf.getPageIndices());
+                    copiedPages.forEach((page) => mergedPdf.addPage(page));
