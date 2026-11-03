@@ -3,10 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ProFileTools - 100% Free Online AI & File Processor</title>
-    <link rel="stylesheet" href="https://cloudflare.com">
-    <script src="https://unpkg.com"></script>
-    <script src="https://cloudflare.com"></script>
+    <title>ProFileTools - 100% Free Online Image & File Processor</title>
     <style>
         body {
             font-family: system-ui, -apple-system, sans-serif;
@@ -97,9 +94,10 @@
             width: 100%;
             box-sizing: border-box;
             transition: background 0.2s;
+            text-align: center;
         }
         .btn:hover { background-color: #0ea5e9; }
-        input[type="file"], select, input[type="password"] {
+        input[type="file"], select, input[type="text"] {
             margin: 8px 0;
             display: block;
             width: 100%;
@@ -111,33 +109,23 @@
             box-sizing: border-box;
             font-size: 0.9rem;
         }
-        
-        /* 📱 شاشات الهواتف والأجهزة اللوحية الصغيرة */
         @media (max-width: 900px) {
             .sidebar-ad { display: none; }
             .navbar { font-size: 1.2rem; padding: 12px; }
-            h2 { font-size: 1.6rem !important; }
             .tool-section { padding: 15px; }
         }
-        
-        /* 💻 الشاشات الكبيرة والكمبيوتر */
         @media (min-width: 901px) {
-            .tools-container {
-                grid-template-columns: repeat(2, 1fr); /* عرض أداتين بجانب بعض في الكمبيوتر */
-            }
-            .btn {
-                width: auto; /* عودة الزر لحجمه الطبيعي في الكمبيوتر */
-            }
+            .tools-container { grid-template-columns: repeat(2, 1fr); }
+            .btn { width: auto; }
         }
     </style>
 </head>
 <body>
 
-    <div class="navbar"><i class="fas fa-cubes"></i> ProFileTools</div>
+    <div class="navbar">ProFileTools</div>
 
     <div class="main-layout">
         
-        <!-- إعلان يسار للشاشات الكبيرة -->
         <div class="sidebar-ad">
             <script>
               atOptions = { 'key' : '45f3883dd373c2992ffd8f77c09487b4', 'format' : 'iframe', 'height' : 600, 'width' : 160, 'params' : {} };
@@ -154,8 +142,8 @@
                 <script src="https://bauval.org"></script>
             </div>
 
-            <h2 style="font-size: 2rem; margin-bottom: 5px; padding: 0 5px;">Premium Online File Toolkit</h2>
-            <p style="color: #94a3b8; font-size: 0.95rem; margin-top: 0; padding: 0 5px;">100% Free, Secure & Powered by Browser Processing.</p>
+            <h2 style="font-size: 2rem; margin-bottom: 5px;">Premium Online Image & File Toolkit</h2>
+            <p style="color: #94a3b8; font-size: 0.95rem; margin-top: 0;">100% Free, Secure & Instant Browser Processing.</p>
 
             <div class="ad-spot" style="max-width: 468px; min-height: 60px;">
                 <script>
@@ -164,66 +152,52 @@
                 <script src="https://bauval.org"></script>
             </div>
 
-            <!-- حاوية الأدوات الستة المتجاوبة -->
             <div class="tools-container">
 
-                <!-- 1. ZIP to Multi-Page PDF -->
+                <!-- 1. Convert Image Format -->
                 <div class="tool-section">
-                    <h3><i class="fas fa-file-archive"></i> ZIP to Multi-Page PDF</h3>
-                    <p>Extract ZIP images & compile into a single book/PDF document instantly.</p>
-                    <input type="file" id="zip-input" accept=".zip">
-                    <button class="btn" onclick="convertZipToPdf()">Extract & Compile PDF</button>
-                </div>
-
-                <!-- 2. Secure PDF Encrypter -->
-                <div class="tool-section">
-                    <h3><i class="fas fa-lock"></i> Secure PDF Encrypter</h3>
-                    <p>Protect your PDF files with high-level passwords and encryption.</p>
-                    <input type="file" id="encrypt-pdf-input" accept="application/pdf">
-                    <input type="password" id="pdf-password" placeholder="Enter secure password...">
-                    <button class="btn" onclick="encryptPDF()">Encrypt & Download</button>
-                </div>
-
-                <!-- 3. Merge PDF Files -->
-                <div class="tool-section">
-                    <h3><i class="fas fa-file-pdf"></i> Merge PDF Documents</h3>
-                    <p>Combine multiple separate PDFs into one document easily.</p>
-                    <input type="file" id="pdf-inputs" multiple accept="application/pdf">
-                    <button class="btn" onclick="mergePDFs()">Merge & Download</button>
-                </div>
-
-                <!-- 4. AI Background Remover -->
-                <div class="tool-section">
-                    <h3><i class="fas fa-magic"></i> AI Background Remover</h3>
-                    <p>Isolate main subject and cut out image backgrounds cleanly.</p>
-                    <input type="file" id="bg-input" accept="image/*">
-                    <button class="btn" onclick="removeBackground()">Remove Background</button>
-                </div>
-
-                <!-- 5. Convert & Compress Image -->
-                <div class="tool-section">
-                    <h3><i class="fas fa-exchange-alt"></i> Convert & Compress Image</h3>
-                    <p>Change formats to WebP/PNG/JPG & reduce sizes locally.</p>
-                    <input type="file" id="img-input" accept="image/*">
-                    <select id="img-format">
-                        <option value="image/webp">WebP (Recommended)</option>
+                    <h3>Convert Image Format</h3>
+                    <p>Change your image format instantly to WebP, JPEG, or PNG locally.</p>
+                    <input type="file" id="convert-input" accept="image/*">
+                    <select id="convert-format">
+                        <option value="image/webp">WebP (Best Quality)</option>
                         <option value="image/jpeg">JPEG</option>
                         <option value="image/png">PNG</option>
                     </select>
-                    <button class="btn" onclick="processImage()">Convert & Download</button>
+                    <button class="btn" onclick="processConvert()">Convert & Download</button>
                 </div>
 
-                <!-- 6. Upscale Image Quality -->
+                <!-- 2. Compress Image Size -->
                 <div class="tool-section">
-                    <h3><i class="fas fa-expand-arrows-alt"></i> Upscale Image Quality</h3>
-                    <p>Increase photo dimensions to Ultra HD resolution.</p>
-                    <input type="file" id="enhance-input" accept="image/*">
-                    <button class="btn" onclick="enhanceImage()">Upscale to Ultra HD</button>
+                    <h3>Compress Image Size</h3>
+                    <p>Reduce photo file size while keeping high visual quality.</p>
+                    <input type="file" id="compress-input" accept="image/*">
+                    <select id="compress-quality">
+                        <option value="0.4">High Compression (Small File)</option>
+                        <option value="0.7" selected>Medium Compression (Balanced)</option>
+                        <option value="0.9">Low Compression (Best Quality)</option>
+                    </select>
+                    <button class="btn" onclick="processCompress()">Compress & Download</button>
+                </div>
+
+                <!-- 3. Upscale Image Quality -->
+                <div class="tool-section">
+                    <h3>Upscale Image Resolution</h3>
+                    <p>Double the dimensions and enhance the crispness of your photo.</p>
+                    <input type="file" id="upscale-input" accept="image/*">
+                    <button class="btn" onclick="processUpscale()">Upscale to Ultra HD</button>
+                </div>
+
+                <!-- 4. AI Background Color Changer -->
+                <div class="tool-section">
+                    <h3>AI Background Color Mask</h3>
+                    <p>Isolate your image and apply a clean background contrast fill.</p>
+                    <input type="file" id="bg-input" accept="image/*">
+                    <button class="btn" onclick="processBg()">Process Mask & Download</button>
                 </div>
 
             </div>
 
-            <!-- بنيرات متوافقة للهاتف والكمبيوتر -->
             <div class="ad-spot" style="max-width: 300px; min-height: 250px;">
                 <script>
                   atOptions = { 'key' : 'b36f398609e803de650323a67cd82433', 'format' : 'iframe', 'height' : 250, 'width' : 300, 'params' : {} };
@@ -241,3 +215,38 @@
             <p style="color: #475569; font-size: 0.8rem; margin-top: 30px;">ProFileTools © 2026 - All Rights Reserved</p>
         </div>
 
+        <div class="sidebar-ad">
+            <script>
+              atOptions = { 'key' : '74640c531876df98505317df872719bc', 'format' : 'iframe', 'height' : 300, 'width' : 160, 'params' : {} };
+            </script>
+            <script src="https://bauval.org"></script>
+        </div>
+
+    </div>
+
+    <script>
+        // 1. تحويل الصيغ المباشر
+        function processConvert() {
+            const file = document.getElementById('convert-input').files[0];
+            if (!file) { alert('Please select an image file first.'); return; }
+            const format = document.getElementById('convert-format').value;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const img = new Image();
+                img.onload = function() {
+                    const canvas = document.createElement('canvas');
+                    canvas.width = img.width; canvas.height = img.height;
+                    canvas.getContext('2d').drawImage(img, 0, 0);
+                    canvas.toBlob((blob) => download(blob, `converted.${format.split('/')[1]}`), format);
+                };
+                img.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        // 2. ضغط الصور المباشر
+        function processCompress() {
+            const file = document.getElementById('compress-input').files[0];
+            if (!file) { alert('Please select an image file first.'); return; }
+            const quality = parseFloat(document.getElementById('compress-quality').value);
+            const reader = new FileReader();
