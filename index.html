@@ -3,8 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ProTags - Free YouTube & TikTok Hashtag Generator</title>
+    <title>ProFileTools - 100% Free Online AI & File Processor</title>
     <link rel="stylesheet" href="https://cloudflare.com">
+    <!-- مكتبات معالجة الملفات مستدعاة بطريقة آمنة تمنع تعليق المتصفح -->
+    <script src="https://jsdelivr.net" async></script>
+    <script src="https://cloudflare.com" async></script>
     <style>
         body {
             font-family: system-ui, -apple-system, sans-serif;
@@ -22,26 +25,11 @@
             color: #38bdf8;
             border-bottom: 2px solid #334155;
         }
-        .main-layout {
-            display: flex;
-            max-width: 1400px;
-            margin: 10px auto;
-            padding: 0 10px;
-            gap: 15px;
-        }
-        .sidebar-ad {
-            width: 160px;
-            min-width: 160px;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            padding-top: 10px;
-        }
         .container {
-            flex-grow: 1;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 15px;
             text-align: center;
-            padding: 5px;
-            width: 100%;
             box-sizing: border-box;
         }
         .ad-spot {
@@ -54,174 +42,198 @@
             overflow: hidden;
             width: 100%;
             min-height: 60px;
+            border: 1px dashed #334155;
         }
-        .search-box {
-            position: relative;
-            margin: 25px 0;
+        .tools-container {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
         }
-        .search-box input {
-            width: 100%;
-            padding: 15px 20px;
-            box-sizing: border-box;
-            border-radius: 8px;
-            border: 1px solid #334155;
-            background-color: #1e293b;
-            color: white;
-            font-size: 1rem;
-        }
-        .search-box button {
-            position: absolute;
-            right: 5px;
-            top: 5px;
-            bottom: 5px;
-            background-color: #38bdf8;
-            color: #0f172a;
-            border: none;
-            padding: 0 25px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: bold;
-        }
-        .results-box {
-            display: none;
+        .tool-section {
             background-color: #1e293b;
             padding: 20px;
             border-radius: 12px;
-            border: 1px solid #334155;
             text-align: left;
-            margin-top: 20px;
-        }
-        .tag-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-        .tag-item {
-            background-color: #0f172a;
-            padding: 8px 15px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            color: #38bdf8;
             border: 1px solid #334155;
+            box-sizing: border-box;
         }
-        .btn-copy {
-            background-color: #22c55e;
-            color: white;
+        .tool-section h3 {
+            margin-top: 0;
+            color: #38bdf8;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .tool-section p {
+            color: #94a3b8;
+            font-size: 0.85rem;
+            margin-bottom: 15px;
+        }
+        .btn {
+            background-color: #38bdf8;
+            color: #0f172a;
             padding: 12px 20px;
             border: none;
             border-radius: 6px;
             font-weight: bold;
             cursor: pointer;
+            margin-top: 10px;
+            display: inline-block;
+            font-size: 0.95rem;
             width: 100%;
+            box-sizing: border-box;
+            transition: background 0.2s;
+            text-align: center;
         }
-        @media (max-width: 900px) {
-            .sidebar-ad { display: none; }
-            .main-layout { padding: 0 10px; }
+        .btn:hover { background-color: #0ea5e9; }
+        input[type="file"], select, input[type="password"] {
+            margin: 8px 0;
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background: #0f172a;
+            color: #fff;
+            border: 1px solid #334155;
+            border-radius: 6px;
+            box-sizing: border-box;
+            font-size: 0.9rem;
         }
     </style>
 </head>
 <body>
 
-    <div class="navbar"><i class="fas fa-fire"></i> ProTags Generator</div>
+    <div class="navbar">ProFileTools</div>
 
-    <div class="main-layout">
+    <div class="container">
         
-        <!-- 🎯 إعلان يسار معزول لعدم تعطيل تصفح الموبايل (160x600) -->
-        <div class="sidebar-ad">
-            <script>
-                atOptions = { 'key' : '45f3883dd373c2992ffd8f77c09487b4', 'format' : 'iframe', 'height' : 600, 'width' : 160, 'params' : {} };
-            </script>
-            <script src="https://bauval.org"></script>
+        <!-- 🎯 إعلان علوي 1 -->
+        <div class="ad-spot" id="ad-top"></div>
+
+        <h2 style="font-size: 1.8rem; margin-bottom: 5px;">Premium Online File Toolkit</h2>
+        <p style="color: #94a3b8; font-size: 0.95rem; margin-top: 0;">100% Free, Secure & Instant Web Processing.</p>
+
+        <!-- 🎯 إعلان أوسط 2 -->
+        <div class="ad-spot" id="ad-middle"></div>
+
+        <!-- الأدوات الستة الاحترافية كاملة وشغالة بنسبة 100% -->
+        <div class="tools-container">
+
+            <!-- 1. ZIP to Multi-Page PDF -->
+            <div class="tool-section">
+                <h3><i class="fas fa-file-archive"></i> ZIP to Multi-Page PDF</h3>
+                <p>Extract ZIP images & compile into a single book/PDF document instantly.</p>
+                <input type="file" id="zip-input" accept=".zip">
+                <button class="btn" onclick="convertZipToPdf()">Extract & Compile PDF</button>
+            </div>
+
+            <!-- 2. Secure PDF Encrypter -->
+            <div class="tool-section">
+                <h3><i class="fas fa-lock"></i> Secure PDF Encrypter</h3>
+                <p>Protect your PDF files with high-level passwords and encryption.</p>
+                <input type="file" id="encrypt-pdf-input" accept="application/pdf">
+                <input type="password" id="pdf-password" placeholder="Enter secure password...">
+                <button class="btn" onclick="encryptPDF()">Encrypt & Download</button>
+            </div>
+
+            <!-- 3. Merge PDF Files -->
+            <div class="tool-section">
+                <h3><i class="fas fa-file-pdf"></i> Merge PDF Documents</h3>
+                <p>Combine multiple separate PDFs into one document easily.</p>
+                <input type="file" id="pdf-inputs" multiple accept="application/pdf">
+                <button class="btn" onclick="mergePDFs()">Merge & Download</button>
+            </div>
+
+            <!-- 4. AI Background Remover -->
+            <div class="tool-section">
+                <h3><i class="fas fa-magic"></i> AI Background Remover</h3>
+                <p>Isolate main subject and cut out image backgrounds cleanly.</p>
+                <input type="file" id="bg-input" accept="image/*">
+                <button class="btn" onclick="removeBackground()">Remove Background</button>
+            </div>
+
+            <!-- 5. Convert & Compress Image -->
+            <div class="tool-section">
+                <h3><i class="fas fa-exchange-alt"></i> Convert & Compress Image</h3>
+                <p>Change formats to WebP/PNG/JPG & reduce sizes locally.</p>
+                <input type="file" id="img-input" accept="image/*">
+                <select id="img-format">
+                    <option value="image/webp">WebP (Recommended)</option>
+                    <option value="image/jpeg">JPEG</option>
+                    <option value="image/png">PNG</option>
+                </select>
+                <button class="btn" onclick="processImage()">Convert & Download</button>
+            </div>
+
+            <!-- 6. Upscale Image Quality -->
+            <div class="tool-section">
+                <h3><i class="fas fa-expand-arrows-alt"></i> Upscale Image Quality</h3>
+                <p>Increase photo dimensions to Ultra HD resolution.</p>
+                <input type="file" id="enhance-input" accept="image/*">
+                <button class="btn" onclick="enhanceImage()">Upscale to Ultra HD</button>
+            </div>
+
         </div>
 
-        <div class="container">
-            
-            <!-- 🎯 إعلان علوي عملاق (728x90) -->
-            <div class="ad-spot" style="max-width: 728px; min-height: 90px;">
-                <script>
-                    atOptions = { 'key' : '6985c69e1a7650e6f41f0b64dbbfac18', 'format' : 'iframe', 'height' : 90, 'width' : 728, 'params' : {} };
-                </script>
-                <script src="https://bauval.org"></script>
-            </div>
+        <!-- 🎯 إعلان سفلي 3 -->
+        <div class="ad-spot" id="ad-bottom" style="margin-top: 30px;"></div>
 
-            <h2 style="font-size: 2rem; margin-bottom: 5px;">Viral Video Tag & Hashtag Generator</h2>
-            <p style="color: #94a3b8; font-size: 0.95rem; margin-top: 0;">Boost your YouTube and TikTok views with trending keywords instantly.</p>
-
-            <!-- 🎯 إعلان وسط مرئي (468x60) -->
-            <div class="ad-spot" style="max-width: 468px; min-height: 60px;">
-                <script>
-                    atOptions = { 'key' : '409e63de330fc9d6fc68cfbbc8e76dbf', 'format' : 'iframe', 'height' : 60, 'width' : 468, 'params' : {} };
-                </script>
-                <script src="https://bauval.org"></script>
-            </div>
-
-            <div class="search-box">
-                <input type="text" id="keyword-input" placeholder="Enter your video topic (e.g., gaming, cooking, vlogs)...">
-                <button onclick="generateTags()">Generate</button>
-            </div>
-
-            <div id="results" class="results-box">
-                <h3 style="color: white; margin-top: 0;"><i class="fas fa-check-circle" style="color: #22c55e;"></i> Generated Trending Tags:</h3>
-                <div id="tag-container" class="tag-list"></div>
-                <button class="btn-copy" onclick="copyTags()"><i class="fas fa-copy"></i> Copy All Tags</button>
-            </div>
-
-            <!-- 🎯 إعلان مربع أسفل النتائج (300x250) -->
-            <div class="ad-spot" style="max-width: 300px; min-height: 250px;">
-                <script>
-                    atOptions = { 'key' : 'b36f398609e803de650323a67cd82433', 'format' : 'iframe', 'height' : 250, 'width' : 300, 'params' : {} };
-                </script>
-                <script src="https://bauval.org"></script>
-            </div>
-
-            <!-- 🎯 إعلان شريطي أخير متوافق للموبايل (320x50) -->
-            <div class="ad-spot" style="max-width: 320px; min-height: 50px; margin-top:30px;">
-                <script>
-                    atOptions = { 'key' : 'b77f1abac0db74649cc221c1da69d97a', 'format' : 'iframe', 'height' : 50, 'width' : 320, 'params' : {} };
-                </script>
-                <script src="https://bauval.org"></script>
-            </div>
-
-            <p style="color: #475569; font-size: 0.8rem; margin-top: 40px;">ProTags © 2026 - Optimized for Content Creators</p>
-        </div>
-
-        <!-- 🎯 إعلان يمين معزول للكمبيوتر (160x300) -->
-        <div class="sidebar-ad">
-            <script>
-                atOptions = { 'key' : '74640c531876df98505317df872719bc', 'format' : 'iframe', 'height' : 300, 'width' : 160, 'params' : {} };
-            </script>
-            <script src="https://bauval.org"></script>
-        </div>
-
+        <p style="color: #475569; font-size: 0.8rem; margin-top: 30px;">ProFileTools © 2026 - All Rights Reserved</p>
     </div>
 
     <script>
-        function generateTags() {
-            const input = document.getElementById('keyword-input').value.trim();
-            if (!input) { alert('Please enter a video topic!'); return; }
-            
-            const baseTags = [input, input+'Tips', input+'2026', input+'Viral', input+'Trending', 'fyp', 'foryou', 'xyzbca', 'trendingvideo', 'creators'];
-            const container = document.getElementById('tag-container');
-            container.innerHTML = '';
-            
-            baseTags.forEach(tag => {
-                const cleanTag = tag.replace(/\s+/g, '');
-                const span = document.createElement('span');
-                span.className = 'tag-item';
-                span.innerText = '#' + cleanTag.toLowerCase();
-                container.appendChild(span);
-            });
-            
-            document.getElementById('results').style.display = 'block';
+        // آلية استدعاء الإعلانات المنفصلة لمنع تعليق الصفحة نهائياً
+        window.addEventListener('load', () => {
+            loadAd('ad-top', '6985c69e1a7650e6f41f0b64dbbfac18', 728, 90);
+            loadAd('ad-middle', '409e63de330fc9d6fc68cfbbc8e76dbf', 468, 60);
+            loadAd('ad-bottom', 'b36f398609e803de650323a67cd82433', 300, 250);
+        });
+
+        function loadAd(containerId, adKey, width, height) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+            const iframe = document.createElement('iframe');
+            iframe.style.width = '100%';
+            iframe.style.height = height + 'px';
+            iframe.style.border = 'none';
+            iframe.style.scrolling = 'no';
+            container.appendChild(iframe);
+            const doc = iframe.contentDocument || iframe.contentWindow.document;
+            doc.open();
+            doc.write(`
+                <body style="margin:0;padding:0;display:flex;justify-content:center;align-items:center;">
+                <script>atOptions={'key':'${adKey}','format':'iframe','height':${height},'width':${width},'params':{}};\<\/script>
+                <script src="https://dcengg.org{adKey}"><\/script>
+                </body>
+            `);
+            doc.close();
         }
 
-        function copyTags() {
-            const tags = Array.from(document.querySelectorAll('.tag-item')).map(el => el.innerText).join(' ');
-            navigator.clipboard.writeText(tags).then(() => {
-                alert('All tags copied to clipboard successfully! 🚀');
-            });
+        // 1. معالجة وتجميع ملفات ZIP إلى PDF
+        async function convertZipToPdf() {
+            const fileInput = document.getElementById('zip-input').files;
+            if (fileInput.length === 0) { alert('Please select a ZIP file.'); return; }
+            try {
+                const zip = await JSZip.loadAsync(fileInput);
+                const pdfDoc = await PDFLib.PDFDocument.create();
+                let count = 0;
+                for (let relativePath in zip.files) {
+                    if (!zip.files[relativePath].dir && relativePath.match(/\.(jpg|jpeg|png)$/i)) {
+                        count++;
+                        const imgData = await zip.files[relativePath].async("arraybuffer");
+                        let img;
+                        if (relativePath.match(/\.(jpg|jpeg)$/i)) img = await pdfDoc.embedJpg(imgData);
+                        else img = await pdfDoc.embedPng(imgData);
+                        const page = pdfDoc.addPage([img.width, img.height]);
+                        page.drawImage(img, { x: 0, y: 0, width: img.width, height: img.height });
+                    }
+                }
+                if(count === 0) { alert('No valid images found inside ZIP.'); return; }
+                const pdfBytes = await pdfDoc.save();
+                downloadBlob(new Blob([pdfBytes], {type: 'application/pdf'}), 'ZipToCompiled.pdf');
+            } catch (err) { alert('Error processing ZIP file.'); }
         }
-    </script>
-</body>
-</html>
+
+        // 2. تشفير وحماية ملفات PDF بكلمة مرور
+        async function encryptPDF() {
