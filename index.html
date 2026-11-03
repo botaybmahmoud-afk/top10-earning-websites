@@ -5,8 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CoreEngine - Free Online Cloud Utilities</title>
     <link rel="stylesheet" href="https://cloudflare.com">
-    
-    <!-- توزيع وتغيير مصادر الأدوات برمجياً لضمان كفاءة القراءة التامة -->
     <script src="https://cloudflare.com" crossorigin="anonymous"></script>
     <script src="https://jsdelivr.net" crossorigin="anonymous"></script>
 </head>
@@ -15,7 +13,6 @@
         --bg-deep: #05070f;
         --bg-panel: #0e1322;
         --accent: #38bdf8;
-        --accent-glow: rgba(56, 189, 248, 0.2);
         --text-light: #f1f5f9;
     }
     body {
@@ -54,10 +51,6 @@
         padding: 20px;
         text-align: left;
         box-sizing: border-box;
-        transition: border 0.2s;
-    }
-    .utility-box:hover {
-        border-color: var(--accent);
     }
     .utility-box h3 {
         margin-top: 0;
@@ -118,10 +111,9 @@
         <p style="color: #64748b; font-size: 0.95rem; margin-top: 0;">Decentralized Local File Encryption & Transformation Engine.</p>
 
         <div class="suite-grid">
-
             <!-- 1. ZIP to Multi-Page PDF -->
             <div class="utility-box">
-                <h3><i class="fas fa-file-archive" style="color: #eab308;"></i> ZIP Image Compiler (Source: jsDelivr)</h3>
+                <h3><i class="fas fa-file-archive" style="color: #eab308;"></i> ZIP Image Compiler</h3>
                 <p>Convert and stack multiple separate compressed images into a single clean document flow.</p>
                 <input type="file" id="zip-files" accept=".zip">
                 <button class="action-btn" onclick="executeProcess('zip')">Compile Archive</button>
@@ -130,7 +122,7 @@
 
             <!-- 2. Secure PDF Encrypter -->
             <div class="utility-box">
-                <h3><i class="fas fa-lock" style="color: #ef4444;"></i> PDF Encryption Shield (Source: cdnjs)</h3>
+                <h3><i class="fas fa-lock" style="color: #ef4444;"></i> PDF Encryption Shield</h3>
                 <p>Apply security protection permissions and encryption headers to your document.</p>
                 <input type="file" id="pdf-secure-file" accept="application/pdf">
                 <input type="password" id="pdf-secure-pass" placeholder="Set file key...">
@@ -140,7 +132,7 @@
 
             <!-- 3. Merge PDF Files -->
             <div class="utility-box">
-                <h3><i class="fas fa-layer-group" style="color: var(--accent);"></i> PDF Stream Binder (Source: cdnjs)</h3>
+                <h3><i class="fas fa-layer-group" style="color: var(--accent);"></i> PDF Stream Binder</h3>
                 <p>Unify different documents into one consolidated file layout in real time.</p>
                 <input type="file" id="pdf-merge-inputs" multiple accept="application/pdf">
                 <button class="action-btn" onclick="executeProcess('merge')">Bind Flows</button>
@@ -149,7 +141,7 @@
 
             <!-- 4. AI Background Remover -->
             <div class="utility-box">
-                <h3><i class="fas fa-wand-magic-sparkles" style="color: #a855f7;"></i> Alpha Mask Extraction (Source: unpkg)</h3>
+                <h3><i class="fas fa-wand-magic-sparkles" style="color: #a855f7;"></i> Alpha Mask Extraction</h3>
                 <p>Analyze and transparentize uniform canvas environments locally inside the memory matrix.</p>
                 <input type="file" id="mask-input" accept="image/*">
                 <button class="action-btn" onclick="executeProcess('mask')">Extract Alpha</button>
@@ -158,7 +150,7 @@
 
             <!-- 5. Convert & Compress Image -->
             <div class="utility-box">
-                <h3><i class="fas fa-compress" style="color: #10b981;"></i> Dynamic Asset Transcoder (Source: unpkg)</h3>
+                <h3><i class="fas fa-compress" style="color: #10b981;"></i> Dynamic Asset Transcoder</h3>
                 <p>Compress raw pixels and modify standard format layouts securely.</p>
                 <input type="file" id="convert-input" accept="image/*">
                 <select id="convert-format">
@@ -172,13 +164,12 @@
 
             <!-- 6. Upscale Image Quality -->
             <div class="utility-box">
-                <h3><i class="fas fa-maximize" style="color: #ec4899;"></i> HD Matrix Upscaler (Source: unpkg)</h3>
+                <h3><i class="fas fa-maximize" style="color: #ec4899;"></i> HD Matrix Upscaler</h3>
                 <p>Double the scale parameters and polish asset definition fields instantly.</p>
                 <input type="file" id="upscale-input" accept="image/*">
                 <button class="action-btn" onclick="executeProcess('upscale')">Upscale Quality</button>
                 <div class="progress-container" id="track-upscale"><div class="loading-track"></div><div class="status-text">0%</div></div>
             </div>
-
         </div>
     </div>
 
@@ -189,6 +180,7 @@
             const txt = container.querySelector('.status-text');
             container.style.display = 'block';
             let progress = 0;
+            line.style.width = '0%';
             
             let interval = setInterval(() => {
                 progress += Math.floor(Math.random() * 10) + 5;
@@ -205,10 +197,10 @@
                     line.style.width = progress + '%';
                     txt.innerText = message + " " + progress + "%";
                 }
-            }, 50);
+            }, 100);
         }
 
-        function executeProcess(type) {
+        async function executeProcess(type) {
             if (type === 'zip') {
                 const files = document.getElementById('zip-files').files;
                 if(files.length === 0) { alert('Upload file required.'); return; }
@@ -216,12 +208,18 @@
                     try {
                         const zip = await JSZip.loadAsync(files[0]);
                         const pdfDoc = await PDFLib.PDFDocument.create();
+                        let count = 0;
                         for (let name in zip.files) {
                             if (!zip.files[name].dir && name.match(/\.(jpg|jpeg|png)$/i)) {
+                                count++;
                                 const bytes = await zip.files[name].async("arraybuffer");
                                 let img = name.match(/\.(jpg|jpeg)$/i) ? await pdfDoc.embedJpg(bytes) : await pdfDoc.embedPng(bytes);
                                 const page = pdfDoc.addPage([img.width, img.height]);
                                 page.drawImage(img, { x: 0, y: 0, width: img.width, height: img.height });
                             }
                         }
+                        if(count === 0) { alert('No valid images inside ZIP.'); return; }
                         dispatch(await pdfDoc.save(), 'compiled_document.pdf');
+                    } catch(e) { alert('Error processing ZIP.'); }
+                });
+            }
