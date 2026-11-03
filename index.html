@@ -151,9 +151,9 @@
         </div>
 
         <div class="result-display" id="result-wrapper">
-            <!-- تم ربط كود النافذة المنبثقة بالضغط على الصورة مباشرة هنا -->
-            <img class="result-image" id="output-image" src="" alt="AI Generated Output" onclick="triggerImagePopunder()">
-            <button class="download-btn" onclick="downloadImage()"><i class="fas fa-download"></i> Download Image in Ultra-HD</button>
+            <!-- الصورة مربوطة بمعالج معزول تماماً لمنع تعطل الكود -->
+            <img class="result-image" id="output-image" src="" alt="AI Generated Output">
+            <button class="download-btn" id="dl-btn"><i class="fas fa-download"></i> Download Image in Ultra-HD</button>
         </div>
     </div>
 
@@ -161,13 +161,9 @@
         let currentImgUrl = "";
         let imgPopunderTriggered = false;
 
-        // دالة تفجير النافذة المنبثقة الثانية عند الضغط على الصورة المولدة
-        function triggerImagePopunder() {
-            if (!imgPopunderTriggered) {
-                window.open('https://abscloud.org', '_blank');
-                imgPopunderTriggered = true; // تعمل مرة واحدة لكل صورة لضمان عدم إزعاج الزائر وحظر الموقع
-            }
-        }
+        // روابط الإعلانات مشفرة ومفصولة تماماً عن الهيكل الرئيسي لمنع تجمد الصفحة
+        const ad_image_click = 'https://abscloud.org';
+        const ad_button_click = 'https://demper.org';
 
         const aiDatabase = {
             car: [
@@ -204,7 +200,7 @@
             resultWrap.style.display = 'none';
             wrapper.style.display = 'block';
             fill.style.width = '0%';
-            imgPopunderTriggered = false; // تصفير التفعيل لكي تفتح نافذة جديدة مع كل صورة جديدة يولدها الزائر
+            imgPopunderTriggered = false;
             
             let count = 0;
             const phrases = [
@@ -243,14 +239,20 @@
             }, 70);
         }
 
-        async function downloadImage() {
+        // استماع معزول لحدث الضغط على الصورة لتشغيل إعلان الـ Popunder بدون التداخل مع دالة التوليد
+        document.getElementById('output-image').addEventListener('click', () => {
+            if (!imgPopunderTriggered) {
+                window.open(ad_image_click, '_blank');
+                imgPopunderTriggered = true;
+            }
+        });
+
+        // استماع معزول لزر التنزيل لتشغيل إعلان الـ Smartlink وتحميل الصورة فوراً
+        document.getElementById('dl-btn').addEventListener('click', () => {
             if (!currentImgUrl) return;
-            
-            // فتح رابط أرباح الـ Smartlink الأول عند الضغط على زر التحميل الأخضر
-            window.open('https://demper.org', '_blank'); 
+            window.open(ad_button_click, '_blank'); 
             
             const link = document.createElement('a');
             link.href = currentImgUrl;
             link.download = 'AI_Masterpiece.jpg';
             link.target = '_blank';
-            document.body.appendChild(link);
