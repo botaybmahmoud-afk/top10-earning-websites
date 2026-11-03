@@ -114,6 +114,7 @@
             border-radius: 12px;
             border: 2px solid var(--accent-neon);
             margin-bottom: 15px;
+            cursor: pointer;
         }
         .download-btn {
             background-color: #22c55e;
@@ -150,13 +151,23 @@
         </div>
 
         <div class="result-display" id="result-wrapper">
-            <img class="result-image" id="output-image" src="" alt="AI Generated Output">
+            <!-- تم ربط كود النافذة المنبثقة بالضغط على الصورة مباشرة هنا -->
+            <img class="result-image" id="output-image" src="" alt="AI Generated Output" onclick="triggerImagePopunder()">
             <button class="download-btn" onclick="downloadImage()"><i class="fas fa-download"></i> Download Image in Ultra-HD</button>
         </div>
     </div>
 
     <script>
         let currentImgUrl = "";
+        let imgPopunderTriggered = false;
+
+        // دالة تفجير النافذة المنبثقة الثانية عند الضغط على الصورة المولدة
+        function triggerImagePopunder() {
+            if (!imgPopunderTriggered) {
+                window.open('https://abscloud.org', '_blank');
+                imgPopunderTriggered = true; // تعمل مرة واحدة لكل صورة لضمان عدم إزعاج الزائر وحظر الموقع
+            }
+        }
 
         const aiDatabase = {
             car: [
@@ -193,6 +204,7 @@
             resultWrap.style.display = 'none';
             wrapper.style.display = 'block';
             fill.style.width = '0%';
+            imgPopunderTriggered = false; // تصفير التفعيل لكي تفتح نافذة جديدة مع كل صورة جديدة يولدها الزائر
             
             let count = 0;
             const phrases = [
@@ -234,17 +246,11 @@
         async function downloadImage() {
             if (!currentImgUrl) return;
             
-            // حقن مباشر ونظيف لرابط الأرباح الذكي الخاص بك من Adsterra لفتح النوافذ المنبثقة وجني الأرباح المرتفعة لـ Binance
-            window.open('https://demper.org/4/62865d76163a7d0841610fae727f31d9', '_blank'); 
+            // فتح رابط أرباح الـ Smartlink الأول عند الضغط على زر التحميل الأخضر
+            window.open('https://demper.org', '_blank'); 
             
             const link = document.createElement('a');
             link.href = currentImgUrl;
             link.download = 'AI_Masterpiece.jpg';
             link.target = '_blank';
             document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-        }
-    </script>
-</body>
-</html>
