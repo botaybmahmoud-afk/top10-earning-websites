@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ProFileTools - 100% Free Online AI & File Processor</title>
     <link rel="stylesheet" href="https://cloudflare.com">
-    <!-- استدعاء المكتبات البرمجية المتطورة لمعالجة الملفات محلياً -->
     <script src="https://unpkg.com"></script>
     <script src="https://cloudflare.com"></script>
     <style>
@@ -18,20 +17,19 @@
         }
         .navbar {
             background-color: #1e293b;
-            padding: 18px;
+            padding: 15px;
             text-align: center;
-            font-size: 1.6rem;
+            font-size: 1.4rem;
             font-weight: bold;
             color: #38bdf8;
             border-bottom: 2px solid #334155;
-            letter-spacing: 0.5px;
         }
         .main-layout {
             display: flex;
             max-width: 1400px;
-            margin: 20px auto;
-            padding: 0 20px;
-            gap: 20px;
+            margin: 10px auto;
+            padding: 0 10px;
+            gap: 15px;
         }
         .sidebar-ad {
             width: 160px;
@@ -39,76 +37,70 @@
             display: flex;
             flex-direction: column;
             gap: 20px;
-            padding-top: 20px;
+            padding-top: 10px;
         }
         .container {
             flex-grow: 1;
             text-align: center;
-            padding: 10px;
+            padding: 5px;
+            width: 100%;
+            box-sizing: border-box;
         }
         .ad-spot {
             background-color: #1e293b;
-            margin: 20px auto;
+            margin: 15px auto;
             display: flex;
             justify-content: center;
             align-items: center;
             border-radius: 8px;
             overflow: hidden;
+            width: 100%;
         }
-        .tools-grid {
+        .tools-container {
+            margin-top: 20px;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: 1fr;
             gap: 20px;
-            margin-top: 30px;
-        }
-        .tool-card {
-            background-color: #1e293b;
-            padding: 30px;
-            border-radius: 12px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: 1px solid #334155;
-        }
-        .tool-card:hover {
-            transform: translateY(-5px);
-            border-color: #38bdf8;
-            box-shadow: 0 10px 20px rgba(56, 189, 248, 0.1);
-        }
-        .tool-card i {
-            font-size: 2.8rem;
-            color: #38bdf8;
-            margin-bottom: 15px;
-        }
-        .tool-card h3 {
-            margin: 10px 0;
-            font-size: 1.3rem;
-            color: #ffffff;
         }
         .tool-section {
-            display: none;
             background-color: #1e293b;
-            padding: 30px;
+            padding: 20px;
             border-radius: 12px;
-            margin-top: 30px;
             text-align: left;
-            border: 1px solid #38bdf8;
+            border: 1px solid #334155;
+            box-sizing: border-box;
+        }
+        .tool-section h3 {
+            margin-top: 0;
+            color: #38bdf8;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .tool-section p {
+            color: #94a3b8;
+            font-size: 0.85rem;
+            margin-bottom: 15px;
         }
         .btn {
             background-color: #38bdf8;
             color: #0f172a;
-            padding: 12px 25px;
+            padding: 12px 20px;
             border: none;
             border-radius: 6px;
             font-weight: bold;
             cursor: pointer;
-            margin-top: 15px;
+            margin-top: 10px;
             display: inline-block;
-            font-size: 1rem;
+            font-size: 0.95rem;
+            width: 100%;
+            box-sizing: border-box;
             transition: background 0.2s;
         }
         .btn:hover { background-color: #0ea5e9; }
         input[type="file"], select, input[type="password"] {
-            margin: 10px 0;
+            margin: 8px 0;
             display: block;
             width: 100%;
             padding: 12px;
@@ -117,16 +109,25 @@
             border: 1px solid #334155;
             border-radius: 6px;
             box-sizing: border-box;
+            font-size: 0.9rem;
         }
-        label {
-            display: block;
-            margin-top: 15px;
-            font-weight: 500;
-            color: #94a3b8;
-        }
+        
+        /* 📱 شاشات الهواتف والأجهزة اللوحية الصغيرة */
         @media (max-width: 900px) {
             .sidebar-ad { display: none; }
-            .main-layout { padding: 0 10px; }
+            .navbar { font-size: 1.2rem; padding: 12px; }
+            h2 { font-size: 1.6rem !important; }
+            .tool-section { padding: 15px; }
+        }
+        
+        /* 💻 الشاشات الكبيرة والكمبيوتر */
+        @media (min-width: 901px) {
+            .tools-container {
+                grid-template-columns: repeat(2, 1fr); /* عرض أداتين بجانب بعض في الكمبيوتر */
+            }
+            .btn {
+                width: auto; /* عودة الزر لحجمه الطبيعي في الكمبيوتر */
+            }
         }
     </style>
 </head>
@@ -136,103 +137,107 @@
 
     <div class="main-layout">
         
-        <!-- 🎯 الجانب الأيسر: إعلان 160x600 للكمبيوتر والأجهزة اللوحية -->
+        <!-- إعلان يسار للشاشات الكبيرة -->
         <div class="sidebar-ad">
             <script>
               atOptions = { 'key' : '45f3883dd373c2992ffd8f77c09487b4', 'format' : 'iframe', 'height' : 600, 'width' : 160, 'params' : {} };
             </script>
-            <script src="https://bauval.org/22/45f3883dd373c2992ffd8f77c09487b4"></script>
+            <script src="https://bauval.org"></script>
         </div>
 
-        <!-- محتوى الموقع الأساسي في المنتصف -->
         <div class="container">
             
-            <!-- 🎯 إعلان علوي عملاق: بانر 728x90 -->
             <div class="ad-spot" style="max-width: 728px; min-height: 90px;">
                 <script>
                   atOptions = { 'key' : '6985c69e1a7650e6f41f0b64dbbfac18', 'format' : 'iframe', 'height' : 90, 'width' : 728, 'params' : {} };
                 </script>
-                <script src="https://bauval.org/22/6985c69e1a7650e6f41f0b64dbbfac18"></script>
+                <script src="https://bauval.org"></script>
             </div>
 
-            <h2 style="font-size: 2.2rem; margin-bottom: 10px;">Premium Online File Toolkit</h2>
-            <p style="color: #94a3b8; font-size: 1.1rem; margin-top: 0;">100% Free, Secure & Powered by Local Web Browser Processing.</p>
+            <h2 style="font-size: 2rem; margin-bottom: 5px; padding: 0 5px;">Premium Online File Toolkit</h2>
+            <p style="color: #94a3b8; font-size: 0.95rem; margin-top: 0; padding: 0 5px;">100% Free, Secure & Powered by Browser Processing.</p>
 
-            <!-- شبكة الأدوات الستة المتقدمة شقالة 100% -->
-            <div class="tools-grid">
-                <div class="tool-card" onclick="showTool('zip-pdf')">
-                    <i class="fas fa-file-archive"></i>
-                    <h3>ZIP to Multi-Page PDF</h3>
-                    <p style="font-size:0.85rem; color:#94a3b8;">Extract ZIP images & compile into a single book/PDF document instantly.</p>
-                </div>
-                <div class="tool-card" onclick="showTool('pdf-encrypt')">
-                    <i class="fas fa-lock"></i>
-                    <h3>Secure PDF Encrypter</h3>
-                    <p style="font-size:0.85rem; color:#94a3b8;">Protect your PDF files with high-level passwords and encryption.</p>
-                </div>
-                <div class="tool-card" onclick="showTool('pdf-merge')">
-                    <i class="fas fa-file-pdf"></i>
-                    <h3>Merge PDF Files</h3>
-                    <p style="font-size:0.85rem; color:#94a3b8;">Combine multiple separate PDFs into one document easily.</p>
-                </div>
-                <div class="tool-card" onclick="showTool('bg-remover')">
-                    <i class="fas fa-magic"></i>
-                    <h3>AI Background Remover</h3>
-                    <p style="font-size:0.85rem; color:#94a3b8;">Isolate main subject and cut out image backgrounds cleanly.</p>
-                </div>
-                <div class="tool-card" onclick="showTool('img-convert')">
-                    <i class="fas fa-exchange-alt"></i>
-                    <h3>Convert & Compress Image</h3>
-                    <p style="font-size:0.85rem; color:#94a3b8;">Change formats to WebP/PNG/JPG & reduce sizes locally.</p>
-                </div>
-                <div class="tool-card" onclick="showTool('img-enhance')">
-                    <i class="fas fa-expand-arrows-alt"></i>
-                    <h3>Upscale Image Quality</h3>
-                    <p style="font-size:0.85rem; color:#94a3b8;">Increase photo dimensions to Ultra HD resolution.</p>
-                </div>
-            </div>
-
-            <!-- 🎯 إعلان وسط الصفحة: بانر 468x60 فوق صناديق الأدوات مباشرة -->
             <div class="ad-spot" style="max-width: 468px; min-height: 60px;">
                 <script>
                   atOptions = { 'key' : '409e63de330fc9d6fc68cfbbc8e76dbf', 'format' : 'iframe', 'height' : 60, 'width' : 468, 'params' : {} };
                 </script>
-                <script src="https://bauval.org/22/409e63de330fc9d6fc68cfbbc8e76dbf"></script>
+                <script src="https://bauval.org"></script>
             </div>
 
-            <!-- 1. قسم: تحويل ملف الـ ZIP إلى PDF مدمج صفحات -->
-            <div id="zip-pdf" class="tool-section">
-                <h3><i class="fas fa-file-archive"></i> ZIP to Multi-Page PDF Converter</h3>
-                <input type="file" id="zip-input" accept=".zip">
-                <button class="btn" onclick="convertZipToPdf()">Extract & Compile PDF</button>
+            <!-- حاوية الأدوات الستة المتجاوبة -->
+            <div class="tools-container">
+
+                <!-- 1. ZIP to Multi-Page PDF -->
+                <div class="tool-section">
+                    <h3><i class="fas fa-file-archive"></i> ZIP to Multi-Page PDF</h3>
+                    <p>Extract ZIP images & compile into a single book/PDF document instantly.</p>
+                    <input type="file" id="zip-input" accept=".zip">
+                    <button class="btn" onclick="convertZipToPdf()">Extract & Compile PDF</button>
+                </div>
+
+                <!-- 2. Secure PDF Encrypter -->
+                <div class="tool-section">
+                    <h3><i class="fas fa-lock"></i> Secure PDF Encrypter</h3>
+                    <p>Protect your PDF files with high-level passwords and encryption.</p>
+                    <input type="file" id="encrypt-pdf-input" accept="application/pdf">
+                    <input type="password" id="pdf-password" placeholder="Enter secure password...">
+                    <button class="btn" onclick="encryptPDF()">Encrypt & Download</button>
+                </div>
+
+                <!-- 3. Merge PDF Files -->
+                <div class="tool-section">
+                    <h3><i class="fas fa-file-pdf"></i> Merge PDF Documents</h3>
+                    <p>Combine multiple separate PDFs into one document easily.</p>
+                    <input type="file" id="pdf-inputs" multiple accept="application/pdf">
+                    <button class="btn" onclick="mergePDFs()">Merge & Download</button>
+                </div>
+
+                <!-- 4. AI Background Remover -->
+                <div class="tool-section">
+                    <h3><i class="fas fa-magic"></i> AI Background Remover</h3>
+                    <p>Isolate main subject and cut out image backgrounds cleanly.</p>
+                    <input type="file" id="bg-input" accept="image/*">
+                    <button class="btn" onclick="removeBackground()">Remove Background</button>
+                </div>
+
+                <!-- 5. Convert & Compress Image -->
+                <div class="tool-section">
+                    <h3><i class="fas fa-exchange-alt"></i> Convert & Compress Image</h3>
+                    <p>Change formats to WebP/PNG/JPG & reduce sizes locally.</p>
+                    <input type="file" id="img-input" accept="image/*">
+                    <select id="img-format">
+                        <option value="image/webp">WebP (Recommended)</option>
+                        <option value="image/jpeg">JPEG</option>
+                        <option value="image/png">PNG</option>
+                    </select>
+                    <button class="btn" onclick="processImage()">Convert & Download</button>
+                </div>
+
+                <!-- 6. Upscale Image Quality -->
+                <div class="tool-section">
+                    <h3><i class="fas fa-expand-arrows-alt"></i> Upscale Image Quality</h3>
+                    <p>Increase photo dimensions to Ultra HD resolution.</p>
+                    <input type="file" id="enhance-input" accept="image/*">
+                    <button class="btn" onclick="enhanceImage()">Upscale to Ultra HD</button>
+                </div>
+
             </div>
 
-            <!-- 2. قسم: تشفير وحماية الـ PDF بكلمة سر -->
-            <div id="pdf-encrypt" class="tool-section">
-                <h3><i class="fas fa-lock"></i> Secure PDF Encrypter</h3>
-                <input type="file" id="encrypt-pdf-input" accept="application/pdf">
-                <input type="password" id="pdf-password" placeholder="Enter secure password...">
-                <button class="btn" onclick="encryptPDF()">Encrypt & Download</button>
+            <!-- بنيرات متوافقة للهاتف والكمبيوتر -->
+            <div class="ad-spot" style="max-width: 300px; min-height: 250px;">
+                <script>
+                  atOptions = { 'key' : 'b36f398609e803de650323a67cd82433', 'format' : 'iframe', 'height' : 250, 'width' : 300, 'params' : {} };
+                </script>
+                <script src="https://bauval.org"></script>
             </div>
 
-            <!-- 3. قسم: دمج الـ PDF -->
-            <div id="pdf-merge" class="tool-section">
-                <h3><i class="fas fa-file-pdf"></i> Merge PDF Documents</h3>
-                <input type="file" id="pdf-inputs" multiple accept="application/pdf">
-                <button class="btn" onclick="mergePDFs()">Merge & Download</button>
+            <div class="ad-spot" style="max-width: 320px; min-height: 50px; margin-top:30px;">
+                <script>
+                  atOptions = { 'key' : 'b77f1abac0db74649cc221c1da69d97a', 'format' : 'iframe', 'height' : 50, 'width' : 320, 'params' : {} };
+                </script>
+                <script src="https://bauval.org"></script>
             </div>
 
-            <!-- 4. قسم: إزالة خلفية الصور بالذكاء الاصطناعي المحلي -->
-            <div id="bg-remover" class="tool-section">
-                <h3><i class="fas fa-magic"></i> AI Background Remover</h3>
-                <input type="file" id="bg-input" accept="image/*">
-                <button class="btn" onclick="removeBackground()">Remove Background</button>
-            </div>
+            <p style="color: #475569; font-size: 0.8rem; margin-top: 30px;">ProFileTools © 2026 - All Rights Reserved</p>
+        </div>
 
-            <!-- 5. قسم: تحويل وضغط الصور -->
-            <div id="img-convert" class="tool-section">
-                <h3><i class="fas fa-exchange-alt"></i> Convert & Compress Image</h3>
-                <input type="file" id="img-input" accept="image/*">
-                <select id="img-format">
-                    <option value="image/webp">WebP (Recommended)</option>
-                    <option value="image/jpeg">JPEG</option>
