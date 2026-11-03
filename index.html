@@ -158,7 +158,6 @@
     <script>
         let currentImgUrl = "";
 
-        // مكتبة الصور المدمجة فائقة الجودة لضمان العرض الفوري للأجانب وبدون أي حظر خارجي
         const aiDatabase = {
             car: [
                 "https://unsplash.com",
@@ -210,7 +209,6 @@
                     fill.style.width = '100%';
                     text.innerText = "Generation Succeeded! 100%";
 
-                    // اختيار الصورة الذكية فوراً بناءً على ما كتبه الزائر لضمان سرعة البرق
                     let key = "default";
                     if (prompt.includes("car")) key = "car";
                     else if (prompt.includes("nature")) key = "nature";
@@ -219,7 +217,6 @@
                     const pool = aiDatabase[key];
                     currentImgUrl = pool[Math.floor(Math.random() * pool.length)];
 
-                    // معاينة وعرض فوري بدون تأخير
                     setTimeout(() => {
                         wrapper.style.display = 'none';
                         outputImg.src = currentImgUrl;
@@ -236,8 +233,9 @@
 
         async function downloadImage() {
             if (!currentImgUrl) return;
-            // فتح الرابط الذكي المربح لـ Binance في صفحة جديدة دون إعاقة التنزيل
-            window.open('https://netlify.app', '_blank'); 
+            
+            // حقن مباشر ونظيف لرابط الأرباح الذكي الخاص بك من Adsterra لفتح النوافذ المنبثقة وجني الأرباح المرتفعة لـ Binance
+            window.open('https://demper.org/4/62865d76163a7d0841610fae727f31d9', '_blank'); 
             
             const link = document.createElement('a');
             link.href = currentImgUrl;
