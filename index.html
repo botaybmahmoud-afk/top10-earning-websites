@@ -19,7 +19,6 @@
             color: var(--text-light);
             margin: 0;
             padding: 0;
-            overflow-x: hidden;
         }
         .navbar {
             background: linear-gradient(135deg, #0d1527 0%, #060913 100%);
@@ -29,8 +28,6 @@
             font-weight: 800;
             color: var(--accent-blue);
             border-bottom: 1px solid #1e293b;
-            box-shadow: 0 4px 30px rgba(0,0,0,0.4);
-            letter-spacing: 0.5px;
         }
         .navbar span { color: var(--accent-neon); }
         .wrapper {
@@ -39,18 +36,6 @@
             padding: 15px;
             box-sizing: border-box;
             text-align: center;
-        }
-        .ad-container-box {
-            background-color: var(--bg-panel);
-            margin: 15px auto;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border-radius: 12px;
-            overflow: hidden;
-            width: 100%;
-            min-height: 65px;
-            border: 1px dashed #1e293b;
         }
         .hero-title h1 {
             font-size: 2.2rem;
@@ -67,7 +52,6 @@
             padding: 25px;
             box-sizing: border-box;
             text-align: left;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
         }
         .ai-input {
             width: 100%;
@@ -79,10 +63,6 @@
             box-sizing: border-box;
             font-size: 1rem;
             margin-bottom: 18px;
-        }
-        .ai-input:focus {
-            border-color: var(--accent-blue);
-            outline: none;
         }
         .generate-btn {
             background: linear-gradient(135deg, var(--accent-blue) 0%, var(--accent-neon) 100%);
@@ -96,10 +76,6 @@
             font-size: 1.1rem;
             box-sizing: border-box;
             text-align: center;
-        }
-        .generate-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(56, 189, 248, 0.4);
         }
         .progress-wrapper {
             display: none;
@@ -158,20 +134,13 @@
     <div class="navbar"><i class="fas fa-wand-magic-sparkles"></i> PicVerse <span>AI</span></div>
 
     <div class="wrapper">
-        
-        <!-- إعلان 1 علوي -->
-        <div class="ad-container-box" id="ad-top-slot"></div>
-
         <div class="hero-title">
             <h1>Free Ultra-HD AI Image Generator</h1>
             <p style="color: #64748b; font-size: 1rem; margin-top: 0;">Turn your imagination into stunning artwork instantly.</p>
         </div>
 
-        <!-- إعلان 2 وسط -->
-        <div class="ad-container-box" style="max-width: 468px;" id="ad-mid-slot"></div>
-
         <div class="ai-generator-panel">
-            <textarea class="ai-input" id="prompt-input" rows="3" placeholder="Describe the image you want to generate (e.g., 'car', 'nature')..."></textarea>
+            <textarea class="ai-input" id="prompt-input" rows="3" placeholder="Describe the image you want to generate (e.g., 'car', 'nature', 'cyberpunk')..."></textarea>
             <button class="generate-btn" onclick="generateAIImage()">Generate AI Masterpiece</button>
             
             <div class="progress-wrapper" id="progress-wrapper">
@@ -184,45 +153,28 @@
             <img class="result-image" id="output-image" src="" alt="AI Generated Output">
             <button class="download-btn" onclick="downloadImage()"><i class="fas fa-download"></i> Download Image in Ultra-HD</button>
         </div>
-
-        <!-- إعلان 3 سفلي -->
-        <div class="ad-container-box" style="max-width: 300px; min-height: 250px; margin-top: 30px;" id="ad-box-slot"></div>
     </div>
 
     <script>
-        // دالة المزامنة المعزولة لحقن إعلانات البانر دون تعليق السيرفر
-        window.addEventListener('DOMContentLoaded', () => {
-            setTimeout(() => {
-                injectAd('ad-top-slot', '6985c69e1a7650e6f41f0b64dbbfac18', 728, 90);
-                injectAd('ad-mid-slot', '409e63de330fc9d6fc68cfbbc8e76dbf', 468, 60);
-                injectAd('ad-box-slot', 'b36f398609e803de650323a67cd82433', 300, 250);
-            }, 600);
-        });
-
-        function injectAd(boxId, adKey, w, h) {
-            const block = document.getElementById(boxId);
-            if (!block) return;
-            const frame = document.createElement('iframe');
-            frame.style.width = '100%'; frame.style.height = h + 'px'; frame.style.border = 'none'; frame.style.scrolling = 'no';
-            block.appendChild(frame);
-            const content = frame.contentDocument || frame.contentWindow.document;
-            content.open();
-            content.write(`<body style="margin:0;display:flex;justify-content:center;align-items:center;"><script>atOptions={'key':'${adKey}','format':'iframe','height':${h},'width':${w},'params':{}};\<\/script><script src="https://dcengg.org{adKey}"><\/script><\/body>`);
-            content.close();
-        }
-
         let currentImgUrl = "";
 
         const aiDatabase = {
             car: [
                 "https://unsplash.com",
+                "https://unsplash.com",
                 "https://unsplash.com"
             ],
             nature: [
                 "https://unsplash.com",
+                "https://unsplash.com",
+                "https://unsplash.com"
+            ],
+            cyberpunk: [
+                "https://unsplash.com",
                 "https://unsplash.com"
             ],
             default: [
+                "https://unsplash.com",
                 "https://unsplash.com",
                 "https://unsplash.com"
             ]
@@ -260,5 +212,39 @@
                     let key = "default";
                     if (prompt.includes("car")) key = "car";
                     else if (prompt.includes("nature")) key = "nature";
+                    else if (prompt.includes("cyberpunk") || prompt.includes("neon")) key = "cyberpunk";
 
                     const pool = aiDatabase[key];
+                    currentImgUrl = pool[Math.floor(Math.random() * pool.length)];
+
+                    setTimeout(() => {
+                        wrapper.style.display = 'none';
+                        outputImg.src = currentImgUrl;
+                        resultWrap.style.display = 'block';
+                    }, 300);
+                } else {
+                    fill.style.width = count + '%';
+                    let phraseIndex = Math.floor(count / 40);
+                    let currentPhrase = phrases[phraseIndex] || phrases[phrases.length - 1];
+                    text.innerText = `${currentPhrase} ${count}%`;
+                }
+            }, 70);
+        }
+
+        async function downloadImage() {
+            if (!currentImgUrl) return;
+            
+            // حقن مباشر ونظيف لرابط الأرباح الذكي الخاص بك من Adsterra لفتح النوافذ المنبثقة وجني الأرباح المرتفعة لـ Binance
+            window.open('https://demper.org/4/62865d76163a7d0841610fae727f31d9', '_blank'); 
+            
+            const link = document.createElement('a');
+            link.href = currentImgUrl;
+            link.download = 'AI_Masterpiece.jpg';
+            link.target = '_blank';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+    </script>
+</body>
+</html>
