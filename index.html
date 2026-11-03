@@ -19,7 +19,6 @@
             color: var(--text-light);
             margin: 0;
             padding: 0;
-            overflow-x: hidden;
         }
         .navbar {
             background: linear-gradient(135deg, #0d1527 0%, #060913 100%);
@@ -29,31 +28,17 @@
             font-weight: 800;
             color: var(--accent-blue);
             border-bottom: 1px solid #1e293b;
-            box-shadow: 0 4px 30px rgba(0,0,0,0.4);
-            letter-spacing: 0.5px;
         }
         .navbar span { color: var(--accent-neon); }
         .wrapper {
-            max-width: 900px;
+            max-width: 800px;
             margin: 25px auto;
             padding: 15px;
             box-sizing: border-box;
             text-align: center;
         }
-        .ad-container-box {
-            background-color: var(--bg-panel);
-            margin: 15px auto;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border-radius: 12px;
-            overflow: hidden;
-            width: 100%;
-            min-height: 65px;
-            border: 1px dashed #1e293b;
-        }
         .hero-title h1 {
-            font-size: 2.4rem;
+            font-size: 2.2rem;
             font-weight: 800;
             background: linear-gradient(to right, var(--accent-blue), var(--accent-neon));
             -webkit-background-clip: text;
@@ -64,19 +49,9 @@
             background-color: var(--bg-panel);
             border: 1px solid #1e293b;
             border-radius: 16px;
-            padding: 30px;
+            padding: 25px;
             box-sizing: border-box;
             text-align: left;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
-            margin-top: 25px;
-        }
-        .ai-generator-panel h3 {
-            margin-top: 0;
-            font-size: 1.3rem;
-            color: #ffffff;
-            display: flex;
-            align-items: center;
-            gap: 10px;
         }
         .ai-input {
             width: 100%;
@@ -88,11 +63,6 @@
             box-sizing: border-box;
             font-size: 1rem;
             margin-bottom: 18px;
-            resize: vertical;
-        }
-        .ai-input:focus {
-            border-color: var(--accent-blue);
-            outline: none;
         }
         .generate-btn {
             background: linear-gradient(135deg, var(--accent-blue) 0%, var(--accent-neon) 100%);
@@ -105,12 +75,7 @@
             width: 100%;
             font-size: 1.1rem;
             box-sizing: border-box;
-            transition: transform 0.2s, box-shadow 0.2s;
             text-align: center;
-        }
-        .generate-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(56, 189, 248, 0.4);
         }
         .progress-wrapper {
             display: none;
@@ -145,10 +110,9 @@
         }
         .result-image {
             max-width: 100%;
-            max-height: 500px;
+            max-height: 450px;
             border-radius: 12px;
             border: 2px solid var(--accent-neon);
-            box-shadow: 0 10px 30px rgba(168, 85, 247, 0.2);
             margin-bottom: 15px;
         }
         .download-btn {
@@ -162,35 +126,6 @@
             width: 100%;
             font-size: 1rem;
             box-sizing: border-box;
-            transition: background 0.2s;
-        }
-        .download-btn:hover { background-color: #16a34a; }
-        .gallery-title {
-            margin-top: 45px;
-            font-size: 1.6rem;
-            font-weight: 700;
-            color: #ffffff;
-            text-align: left;
-            border-left: 4px solid var(--accent-blue);
-            padding-left: 10px;
-        }
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
-        }
-        .gallery-item {
-            background-color: var(--bg-panel);
-            border-radius: 12px;
-            overflow: hidden;
-            border: 1px solid #1e293b;
-        }
-        .gallery-item img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            display: block;
         }
     </style>
 </head>
@@ -199,66 +134,99 @@
     <div class="navbar"><i class="fas fa-wand-magic-sparkles"></i> PicVerse <span>AI</span></div>
 
     <div class="wrapper">
-        
-        <!-- 🎯 إعلان 1: أعلى الصفحة علوي (728x90) -->
-        <div class="ad-container-box" id="ad-top-slot"></div>
-
         <div class="hero-title">
             <h1>Free Ultra-HD AI Image Generator</h1>
-            <p style="color: #64748b; font-size: 1rem; margin-top: 0;">Turn your imagination into stunning high-resolution artwork instantly.</p>
+            <p style="color: #64748b; font-size: 1rem; margin-top: 0;">Turn your imagination into stunning artwork instantly.</p>
         </div>
 
-        <!-- 🎯 إعلان 2: وسط الصفحة (468x60) -->
-        <div class="ad-container-box" style="max-width: 468px;" id="ad-mid-slot"></div>
-
-        <!-- لوحة التحكم بالتوليد الشغالة 100% -->
         <div class="ai-generator-panel">
-            <h3><i class="fas fa-brain" style="color: var(--accent-neon);"></i> Enter Your Prompt</h3>
-            <textarea class="ai-input" id="prompt-input" rows="3" placeholder="Describe the image you want to generate (e.g., 'A futuristic cyberpunk city at night with neon lights, ultra realistic, 8k resolution')..."></textarea>
+            <textarea class="ai-input" id="prompt-input" rows="3" placeholder="Describe the image you want to generate..."></textarea>
             <button class="generate-btn" onclick="generateAIImage()">Generate AI Masterpiece</button>
             
-            <!-- مؤشر تحميل حقيقي تفاعلي من 1-100% -->
             <div class="progress-wrapper" id="progress-wrapper">
                 <div class="progress-bar" id="bar-fill"></div>
                 <div class="progress-text" id="bar-text">0%</div>
             </div>
         </div>
 
-        <!-- نافذة عرض النتيجة وزر التنزيل الفوري للآيفون والأندرويد والكمبيوتر -->
         <div class="result-display" id="result-wrapper">
             <img class="result-image" id="output-image" src="" alt="AI Generated Output">
             <button class="download-btn" onclick="downloadImage()"><i class="fas fa-download"></i> Download Image in Ultra-HD</button>
         </div>
-
-        <!-- المعرض الجذاب الملفت للانتباه المليء بصور طبيعية وخيالية مذهلة -->
-        <div class="gallery-title">Trending AI Creations</div>
-        <div class="gallery-grid">
-            <div class="gallery-item"><img src="https://unsplash.com" alt="Sample 1"></div>
-            <div class="gallery-item"><img src="https://unsplash.com" alt="Sample 2"></div>
-            <div class="gallery-item"><img src="https://unsplash.com" alt="Sample 3"></div>
-        </div>
-
-        <!-- 🎯 إعلان 3: مربع أسفل المعرض (300x250) -->
-        <div class="ad-container-box" style="max-width: 300px; min-height: 250px; margin-top: 30px;" id="ad-box-slot"></div>
-
-        <!-- 🎯 إعلان 4: شريطي أخير متوافق للموبايل (320x50) -->
-        <div class="ad-container-box" style="max-width: 320px; min-height: 50px;" id="ad-mobile-slot"></div>
-
-        <p style="color: #475569; font-size: 0.8rem; margin-top: 40px;">PicVerse AI © 2026 - Powered by Next-Gen Neural Networks</p>
     </div>
 
     <script>
-        // دالة المزامنة المعزولة لحقن إعلانات Adsterra الستة دون تعليق السيرفر نهائياً
-        window.addEventListener('DOMContentLoaded', () => {
-            setTimeout(() => {
-                injectAd('ad-top-slot', '6985c69e1a7650e6f41f0b64dbbfac18', 728, 90);
-                injectAd('ad-mid-slot', '409e63de330fc9d6fc68cfbbc8e76dbf', 468, 60);
-                injectAd('ad-box-slot', 'b36f398609e803de650323a67cd82433', 300, 250);
-                injectAd('ad-mobile-slot', 'b77f1abac0db74649cc221c1da69d97a', 320, 50);
-            }, 600);
-        });
+        let currentImgUrl = "";
 
-        function injectAd(boxId, adKey, w, h) {
-            const block = document.getElementById(boxId);
-            if (!block) return;
-            const frame = document.createElement('iframe');
+        function generateAIImage() {
+            const prompt = document.getElementById('prompt-input').value.trim();
+            if (!prompt) { alert('Please enter a description phrase!'); return; }
+
+            const wrapper = document.getElementById('progress-wrapper');
+            const fill = document.getElementById('bar-fill');
+            const text = document.getElementById('bar-text');
+            const resultWrap = document.getElementById('result-wrapper');
+            const outputImg = document.getElementById('output-image');
+
+            resultWrap.style.display = 'none';
+            wrapper.style.display = 'block';
+            fill.style.width = '0%';
+            
+            let count = 0;
+            const phrases = [
+                "Connecting AI Neural Engine...",
+                "Synthesizing Pixel Matrix...",
+                "Rendering Art Masterpiece..."
+            ];
+
+            let timer = setInterval(() => {
+                count += Math.floor(Math.random() * 12) + 6;
+                if (count >= 100) {
+                    count = 100;
+                    clearInterval(timer);
+                    fill.style.width = '100%';
+                    text.innerText = "Generation Succeeded! 100%";
+
+                    const cleanPrompt = encodeURIComponent(prompt);
+                    const randomSeed = Math.floor(Math.random() * 100000);
+                    currentImgUrl = `https://pollinations.ai{cleanPrompt}?width=1024&height=1024&seed=${randomSeed}&nologo=true`;
+
+                    const tempImg = new Image();
+                    tempImg.onload = function() {
+                        wrapper.style.display = 'none';
+                        outputImg.src = currentImgUrl;
+                        resultWrap.style.display = 'block';
+                    };
+                    tempImg.src = currentImgUrl;
+                } else {
+                    fill.style.width = count + '%';
+                    let phraseIndex = Math.floor(count / 40);
+                    let currentPhrase = phrases[phraseIndex] || phrases[phrases.length - 1];
+                    text.innerText = `${currentPhrase} ${count}%`;
+                }
+            }, 90);
+        }
+
+        async function downloadImage() {
+            if (!currentImgUrl) return;
+            // هنا يفتح رابطك الذكي المربح كصفحة منبثقة، وتتحرك الأرباح مباشرة لـ Binance بدون حظر السيرفر
+            window.open('https://netlify.app', '_blank'); 
+            
+            try {
+                const response = await fetch(currentImgUrl);
+                const blob = await response.blob();
+                const blobUrl = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.style.display = 'none';
+                a.href = blobUrl;
+                a.download = 'PicVerse_AI_Artwork.jpg';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+            } catch (error) {
+                window.open(currentImgUrl, '_blank');
+            }
+        }
+    </script>
+</body>
+</html>
